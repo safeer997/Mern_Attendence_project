@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import '../styles/auth.styles.css';
 import { useState } from 'react';
-import { loginUser } from '../api/auth.ts';
+import { loginUser, logout } from '../api/auth';
 import { useNavigate } from 'react-router';
 
 const Auth = () => {
@@ -18,7 +18,7 @@ const Auth = () => {
     try {
       setLoading(true);
       setError('');
-      const response = await loginUser( phoneNumber, password );
+      const response = await loginUser(phoneNumber, password);
       console.log(response);
 
       if (response?.data?.success) {
@@ -34,6 +34,11 @@ const Auth = () => {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = async () => {
+    const response = await logout();
+    console.log('logout res : ', response);
   };
 
   return (

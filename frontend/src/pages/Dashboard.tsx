@@ -1,5 +1,18 @@
+import { logout } from '../api/auth';
+
 function Dashboard() {
-  return <div>Dashboard</div>;
+  const handleLogout = async () => {
+    const response = await logout();
+    console.log('logout res : ', response);
+  };
+
+  return (
+    <>
+      <div>Dashboard</div>
+      <br></br>
+      <button onClick={handleLogout}>logout</button>
+    </>
+  );
 }
 
 export default Dashboard;

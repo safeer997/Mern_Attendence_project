@@ -9,7 +9,7 @@ import studentRoutes from './routes/student.route.js';
 import instructerRoutes from './routes/instructor.route.js';
 import classSessionRoutes from './routes/classSession.route.js';
 import markAttendanceRoutes from './routes/attendance.route.js';
-import authRoutes from "./routes/auth.route.js"
+import authRoutes from './routes/auth.route.js';
 
 // Load environment variables
 dotenv.config();
@@ -23,8 +23,8 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: '*', // Allows all origins
-    credentials: true, // Allows cookies to be sent
+    origin: 'http://localhost:5173', // your frontend origin
+    credentials: true, // allow cookies and credentials
   })
 );
 
@@ -35,7 +35,7 @@ app.use('/students', studentRoutes);
 app.use('/instructer', instructerRoutes);
 app.use('/classSession', classSessionRoutes);
 app.use('/attendance', markAttendanceRoutes);
-app.use('/auth', authRoutes );
+app.use('/auth', authRoutes);
 
 // Define the PORT
 const PORT = process.env.PORT || 7000;

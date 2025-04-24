@@ -22,7 +22,7 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(401).json({
         success: false,
-        message: 'Unauthorized to login',
+        message: 'No User found , please Sign Up !',
       });
     }
 
