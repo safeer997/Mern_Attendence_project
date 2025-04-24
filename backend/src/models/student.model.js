@@ -34,6 +34,11 @@ const studentSchema = new Schema(
     batch: {
       type: String,
     },
+    role: {
+      type: String,
+      default: 'student',
+      enum: ['student', 'instructor'],
+    },
   },
   { timestamps: true }
 );

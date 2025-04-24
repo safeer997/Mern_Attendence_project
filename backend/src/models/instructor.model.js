@@ -25,6 +25,11 @@ const instructorSchema = new Schema(
       type: String,
       required: true,
     },
+    role: {
+      type: String,
+      default: 'instructor',
+      enum: ['student', 'instructor'],
+    },
   },
   { timestamps: true }
 );
