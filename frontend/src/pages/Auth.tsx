@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import '../styles/auth.styles.css';
 import { useState } from 'react';
-import { loginUser, logout } from '../api/auth';
+import { loginUser} from '../api/auth';
 import { useNavigate } from 'react-router';
 
 const Auth = () => {
@@ -11,7 +11,7 @@ const Auth = () => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-
+  const [signingUp, setSigningUp] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -25,6 +25,9 @@ const Auth = () => {
         console.log('Login Success:', response.data);
         navigate('/dashboard');
       } else {
+        {
+          setSigningUp(true)
+        }
         console.log('Login failed:', response.data);
         setError(response?.data?.message || 'Login failed');
       }
@@ -36,9 +39,8 @@ const Auth = () => {
     }
   };
 
-  const handleLogout = async () => {
-    const response = await logout();
-    console.log('logout res : ', response);
+  const handleSignup = () => {
+    navigate('/signup');
   };
 
   return (
@@ -66,9 +68,15 @@ const Auth = () => {
             <Button className='auth-button' onClick={handleLogin}>
               Login
             </Button>
-            <Button className='auth-button' variant='outline'>
-              Sign Up
-            </Button>
+            {signingUp && (
+              <Button
+                className='auth-button'
+                onClick={handleSignup}
+                variant='outline'
+              >
+                Sign Up
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>

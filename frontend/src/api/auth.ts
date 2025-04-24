@@ -30,3 +30,20 @@ export const logout = async () => {
     return error.response;
   }
 };
+
+//user data as being passed as object from signup page
+export const signupUser = async (userData) => {
+  try {
+    console.log("trying to sign up")
+    const response = await axios.post(
+      'http://localhost:3000/auth/signup',
+      userData,
+      { withCredentials: true }
+    );
+
+    return response;
+  } catch (error) {
+    console.log('Error logging in:', error);
+    return error.response;
+  }
+};
