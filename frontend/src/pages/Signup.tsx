@@ -27,6 +27,8 @@ import {
 import { useNavigate } from 'react-router';
 import { useState } from 'react';
 
+import { toast } from 'sonner';
+
 const Signup = () => {
   const [signupFailureMessage, setSignupFailureMessage] = useState('');
   const navigate = useNavigate();
@@ -53,7 +55,7 @@ const Signup = () => {
       ) {
         navigate('/instructer');
       } else {
-        setSignupFailureMessage(response?.data?.message);
+        toast.warning( response?.data?.message);
       }
     } catch (error) {
       console.error('Signup failed:', error);

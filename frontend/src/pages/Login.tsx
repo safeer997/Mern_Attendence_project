@@ -15,10 +15,7 @@ import {
   FormControl,
   FormMessage,
 } from '@/components/ui/form';
-
 import '../styles/auth.styles.css';
-import { useEffect, useState } from 'react';
-
 import { toast } from 'sonner';
 
 const Login = () => {
