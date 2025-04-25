@@ -17,13 +17,13 @@ import {
 } from '@/components/ui/form';
 
 import '../styles/auth.styles.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+import { toast } from 'sonner';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [invalidCredentialsMessage, setInvalidCredentialsMessage] =
-    useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  // const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -46,13 +46,16 @@ const Login = () => {
       ) {
         navigate('/instructer');
       } else {
-        setErrorMessage(response?.data?.message);
-        setInvalidCredentialsMessage(true);
+        //setting msg directly because setState is asynchronous and was causing inconsistency !! 
+        toast.warning( response?.data?.message);
+
       }
     } catch (err) {
       console.error('Login error:', err);
     }
   };
+
+  
 
   return (
     <div className='auth-container'>
@@ -93,13 +96,6 @@ const Login = () => {
                   </FormItem>
                 )}
               />
-
-              {invalidCredentialsMessage && (
-                <div className='error-message '>
-                  <p className='text-red-500'>{errorMessage}</p>
-                </div>
-              )}
-
               <div className='auth-buttons'>
                 <Button className='auth-button' type='submit'>
                   Login
