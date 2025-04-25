@@ -4,13 +4,13 @@ import markAbsentStudents from '../services/update.attendence.js';
 
 // Function to generate attendance link
 const generateAttendanceLink = (sessionId) => {
-  return `https://yourapp.com/attendance/${sessionId}`;
+  return `http://localhost:3000/attendance/${sessionId}`;
 };
 
 //--------------------------------------------------------------------------------------------------
 
 const createSession = async (req, res) => {
-  const { topic, instructorId, sessionDate } = req.body;
+  const { topic, instructorId , sessionDate , onlineStudents } = req.body;
   try {
     if (!topic || !instructorId || !sessionDate) {
       return res.status(400).json({
@@ -50,6 +50,7 @@ const createSession = async (req, res) => {
       topic,
       instructor: instructorId,
       sessionDate: sessionDate,
+      onlineStudents,
     });
 
     // Generating attendance link

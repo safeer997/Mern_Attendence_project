@@ -4,6 +4,6 @@ import { authenticateUser } from '../middleware/auth.middleware.js';
 
 const router = Router();
 
-router.route('/:sessionId').get(authenticateUser, markAttendance);
+router.route('/:sessionId').post(authenticateUser, markAttendance);
 
 export default router;
