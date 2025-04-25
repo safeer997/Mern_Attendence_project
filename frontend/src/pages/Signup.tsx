@@ -10,25 +10,25 @@ import '../styles/auth.styles.css';
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { useState } from 'react';
 import { Select } from '@radix-ui/react-select';
 import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+
 import { useNavigate } from 'react-router';
+import { useState } from 'react';
 
 const Signup = () => {
+  const [signupFailureMessage, setSignupFailureMessage] = useState('');
   const navigate = useNavigate();
 
   const form = useForm({
@@ -43,9 +43,24 @@ const Signup = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data);
-    const response = await signupUser(data);
-    console.log(response);
+    try {
+      const response = await signupUser(data);
+      console.log('response :', response);
+      console.log('form data :', data);
+      if (response?.data?.success === true && data?.role === 'student') {
+        console.log('if');
+        navigate('/student');
+      } else if (
+        response?.data?.success === true &&
+        data?.role === 'instructer'
+      ) {
+        navigate('/instructer');
+      } else {
+        setSignupFailureMessage(response?.data?.message);
+      }
+    } catch (error) {
+      console.error('Signup failed:', error);
+    }
   };
 
   const handleSignin = () => {
@@ -142,6 +157,11 @@ const Signup = () => {
                     </FormItem>
                   )}
                 />
+                {signupFailureMessage && (
+                  <div className='error-message '>
+                    <p className='text-red-500'>{signupFailureMessage}</p>
+                  </div>
+                )}
                 <Button type='submit'>Sign Up</Button>
               </form>
             </Form>

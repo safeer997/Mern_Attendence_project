@@ -21,7 +21,9 @@ import { useState } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [signingUp, setSigningUp] = useState(false);
+  const [invalidCredentialsMessage, setInvalidCredentialsMessage] =
+    useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm({
     resolver: zodResolver(loginSchema),
@@ -34,12 +36,12 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data.phoneNumber, data.password);
-      console.log(response);
 
       if (response?.data?.success) {
         navigate('/dashboard');
       } else {
-        setSigningUp(true);
+        setErrorMessage(response?.data?.message);
+        setInvalidCredentialsMessage(true);
       }
     } catch (err) {
       console.error('Login error:', err);
@@ -86,20 +88,25 @@ const Login = () => {
                 )}
               />
 
+              {invalidCredentialsMessage && (
+                <div className='error-message '>
+                  <p className='text-red-500'>{errorMessage}</p>
+                </div>
+              )}
+
               <div className='auth-buttons'>
                 <Button className='auth-button' type='submit'>
                   Login
                 </Button>
-                {signingUp && (
-                  <Button
-                    className='auth-button'
-                    onClick={() => navigate('/signup')}
-                    variant='outline'
-                    type='button'
-                  >
-                    Sign Up
-                  </Button>
-                )}
+
+                <Button
+                  className='auth-button'
+                  onClick={() => navigate('/signup')}
+                  variant='outline'
+                  type='button'
+                >
+                  Sign Up
+                </Button>
               </div>
             </form>
           </Form>
