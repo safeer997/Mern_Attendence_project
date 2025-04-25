@@ -45,10 +45,7 @@ const Signup = () => {
   const onSubmit = async (data) => {
     try {
       const response = await signupUser(data);
-      console.log('response :', response);
-      console.log('form data :', data);
       if (response?.data?.success === true && data?.role === 'student') {
-        console.log('if');
         navigate('/student');
       } else if (
         response?.data?.success === true &&

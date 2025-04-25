@@ -36,9 +36,15 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data.phoneNumber, data.password);
+      console.log(response);
 
-      if (response?.data?.success) {
-        navigate('/dashboard');
+      if (response?.data?.success && response?.data?.role === 'student') {
+        navigate('/student');
+      } else if (
+        response?.data?.success &&
+        response?.data?.role === 'instructor'
+      ) {
+        navigate('/instructer');
       } else {
         setErrorMessage(response?.data?.message);
         setInvalidCredentialsMessage(true);
