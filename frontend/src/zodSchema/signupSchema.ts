@@ -13,7 +13,7 @@ export const signupSchema = z.object({
   password: z
     .string()
     .min(6, { message: 'Password must be at least 6 characters' }),
-  role: z.enum(['student', 'instructor'], {
+  role: z.enum(['student', 'instructer'], {
     required_error: 'Role is required',
   }),
 });

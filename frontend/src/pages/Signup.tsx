@@ -26,13 +26,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useNavigate } from 'react-router';
 
 const Signup = () => {
-  const [name, setname] = useState('');
-  const [email, setEmail] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState(undefined);
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -46,9 +43,13 @@ const Signup = () => {
   });
 
   const onSubmit = async (data) => {
-    console.log(data)
+    console.log(data);
     const response = await signupUser(data);
     console.log(response);
+  };
+
+  const handleSignin = () => {
+    navigate('/login');
   };
 
   return (
@@ -66,7 +67,7 @@ const Signup = () => {
                   name='name'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>name</FormLabel>
+                      <FormLabel>Username</FormLabel>
                       <FormControl>
                         <Input placeholder='name' {...field} />
                       </FormControl>
@@ -144,6 +145,11 @@ const Signup = () => {
                 <Button type='submit'>Sign Up</Button>
               </form>
             </Form>
+            <div className='auth-link'>
+              <p>
+                Already a member ?<span onClick={handleSignin}>Sign In</span>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>

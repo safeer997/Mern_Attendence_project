@@ -27,6 +27,13 @@
   flex-direction: column;
   gap: 1.5rem;
   flex: 1;
+  padding: 20px 20px;
+}
+
+.auth-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .auth-buttons {
@@ -43,4 +50,14 @@
   font-size: 0.9rem;
   margin-top: 0.5rem;
   text-align: center;
+}
+
+.auth-link p {
+  text-align: center;
+
+  span{
+    color: green;
+    cursor: pointer;
+    margin-left: 5px;
+  }
 }
