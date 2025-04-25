@@ -12,7 +12,7 @@ export const loginUser = async (phoneNumber, password) => {
     );
     return response;
   } catch (error) {
-    // console.log('Error logging in:', error);
+    console.log('Error logging in:', error);
     return error.response;
   }
 };
