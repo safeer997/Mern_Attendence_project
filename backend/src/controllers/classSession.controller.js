@@ -10,9 +10,9 @@ const generateAttendanceLink = (sessionId) => {
 //--------------------------------------------------------------------------------------------------
 
 const createSession = async (req, res) => {
-  const { topic, instructorId , sessionDate , onlineStudents } = req.body;
+  const { topic, sessionDate, onlineStudents = [] } = req.body;
   try {
-    if (!topic || !instructorId || !sessionDate) {
+    if (!topic || !sessionDate) {
       return res.status(400).json({
         success: false,
         message: 'topic , instructor id ,session date is required !',
@@ -24,6 +24,15 @@ const createSession = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: 'Topic must be a non-empty string.',
+      });
+    }
+
+    const instructorId = req.user.id;
+
+    if (!instructorId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized. Instructor ID missing.',
       });
     }
 
