@@ -5,7 +5,11 @@ import Signup from './pages/Signup';
 import Login from './pages/Login';
 import StudentDashboard from './pages/StudentDashboard';
 import InstructerDashboard from './pages/InstructerDashboard';
+import CreateSession from './pages/CreateSession';
+
+
 function App() {
+  
   return (
     <Routes>
       <Route path='/' element={<Home />} />
@@ -13,6 +17,10 @@ function App() {
       <Route path='/signup' element={<Signup />} />
       <Route path='/student' element={<StudentDashboard />} />
       <Route path='/instructer' element={<InstructerDashboard />} />
+      <Route
+        path='/create-session'
+        element={<CreateSession />}
+      />
     </Routes>
   );
 }
