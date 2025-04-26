@@ -1,0 +1,16 @@
+.header {
+  background-color: #1e293b; /* Slate-800 */
+  color: white;
+  padding: 1rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  
+  /* Centering the content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
