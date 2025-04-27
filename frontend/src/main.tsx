@@ -6,10 +6,10 @@ import { BrowserRouter } from 'react-router';
 import { Toaster } from 'sonner';
 
 createRoot(document.getElementById('root')!).render(
-  <StrictMode>
+  // <StrictMode>
     <BrowserRouter>
       <App />
       <Toaster position="top-center" richColors />
     </BrowserRouter>
-  </StrictMode>
+  // </StrictMode>
 );

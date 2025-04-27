@@ -47,6 +47,7 @@ const Signup = () => {
   const onSubmit = async (data) => {
     try {
       const response = await signupUser(data);
+      // console.log("signup res :",response)
       if (response?.data?.success === true && data?.role === 'student') {
         navigate('/student');
       } else if (

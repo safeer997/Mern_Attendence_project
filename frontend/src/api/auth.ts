@@ -46,3 +46,15 @@ export const signupUser = async (userData) => {
     return error.response;
   }
 };
+
+export const verifyUser = async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/auth/verifyUser', {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.log('Error verifying user on app load:', error);
+    return error.response;
+  }
+};

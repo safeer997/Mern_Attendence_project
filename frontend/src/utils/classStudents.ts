@@ -1,5 +1,5 @@
 export  const classStudents = [
-  { name: 'Aarav Sharma', phoneNumber: '9876543210' },
+  { name: 'Safeer ALam', phoneNumber: '9934247164' },
   { name: 'Vivaan Gupta', phoneNumber: '8765432109' },
   { name: 'Aditya Patel', phoneNumber: '7654321098' },
   { name: 'Sai Suresh', phoneNumber: '6543210987' },
