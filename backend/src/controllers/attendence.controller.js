@@ -3,11 +3,9 @@ import { ClassSession } from '../models/classSession.model.js';
 import { Student } from '../models/student.model.js';
 
 const markAttendance = async (req, res) => {
-  const { phoneNumber } = req.body;
   const studentIp = req.ip;
-  const sessionId = req.params;
+  const { sessionId } = req.params;
 
-  //validate session id
   if (!sessionId?.trim()) {
     return res.status(400).json({
       success: false,
@@ -15,16 +13,9 @@ const markAttendance = async (req, res) => {
     });
   }
 
-  //validate phone number
-  if (!phoneNumber?.trim()) {
-    return res.status(400).json({
-      success: false,
-      message: 'phone number is required for marking the attendance',
-    });
-  }
+  const phoneNumber = req.user.phoneNumber;
 
   try {
-    //checking session
     const session = await ClassSession.findById(sessionId);
     if (!session) {
       return res.status(400).json({
@@ -63,6 +54,7 @@ const markAttendance = async (req, res) => {
 
     if (studentIp === accioCenterIpAddress) {
       //mark attendance
+      
       const attendance = await Attendance.create({
         student: student._id,
         classSession: session._id,
@@ -91,7 +83,8 @@ const markAttendance = async (req, res) => {
     if (!onlineStudent) {
       return res.status(400).json({
         success: false,
-        message: 'student was not present online for this session',
+        message: 'student was not present online / offline for this session',
+        ip: studentIp,
       });
     }
 

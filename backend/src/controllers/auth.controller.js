@@ -34,9 +34,13 @@ const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign({ id: user._id, role }, process.env.JWT_SECRET, {
-      expiresIn: '1d',
-    });
+    const token = jwt.sign(
+      { id: user._id, role, phoneNumber: user.phoneNumber, email: user.email },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    );
 
     res.cookie('authToken', token, {
       httpOnly: true,

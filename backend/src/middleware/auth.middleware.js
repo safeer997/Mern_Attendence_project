@@ -12,7 +12,11 @@ const authenticateUser = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = { id: decoded.id, role: decoded.role };
+    req.user = {
+      id: decoded.id,
+      role: decoded.role,
+      phoneNumber: decoded.phoneNumber,
+    };
     next();
   } catch (error) {
     return res.status(403).json({

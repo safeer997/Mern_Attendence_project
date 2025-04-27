@@ -1,10 +1,10 @@
+import { ClassSession } from '../models/classSession.model.js';
 import { Student } from '../models/student.model.js';
 
 const registerStudent = async (req, res) => {
   const { name, email, password, phoneNumber } = req.body;
   //validating input
   try {
-    //checking name
     if (
       [name, email, password, phoneNumber].some((field) => field?.trim() === '')
     ) {
@@ -73,7 +73,7 @@ const getAllStudents = async (req, res) => {
   try {
     const students = await Student.find().select('-password');
     if (students.length === 0) {
-     return res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: 'no students record exist',
       });
@@ -120,4 +120,32 @@ const getStudent = async (req, res) => {
   }
 };
 
-export { registerStudent, getAllStudents, getStudent };
+//function to get recent created sessions
+
+const getTodaySessions = async (req, res) => {
+  try {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const sessions = await ClassSession.find({
+      sessionDate: { $gte: today, $lt: tomorrow },
+    });
+
+    return res.status(201).json({
+      success: true,
+      message: 'today sessions data fetched.',
+      data: sessions,
+    });
+  } catch (error) {
+    console.log('Error :', error);
+    res.status(500).json({
+      success: false,
+      message: 'error fegtching today sessions',
+    });
+  }
+};
+
+export { registerStudent, getAllStudents, getStudent, getTodaySessions };
