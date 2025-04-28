@@ -20,7 +20,7 @@ export const loginUser = async (phoneNumber, password) => {
   }
 };
 
-export const logout = async () => {
+export const logoutUser= async () => {
   try {
     const response = await axios.post(
       `${apiUrl}/auth/logout`,

@@ -17,9 +17,13 @@ import {
 } from '@/components/ui/form';
 import '../styles/auth.styles.css';
 import { toast } from 'sonner';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/redux/features/authSlice';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   // const [errorMessage, setErrorMessage] = useState('');
 
   const form = useForm({
@@ -33,14 +37,18 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data.phoneNumber, data.password);
-      // console.log('login response :', response);
+      console.log('login response :', response);
+      console.log('trying to login student');
 
       if (response?.data?.success && response?.data?.role === 'student') {
+        // console.log('this line is getting console logged !!!');
+        dispatch(setUser(response?.data?.user));
         navigate('/student');
       } else if (
         response?.data?.success &&
         response?.data?.role === 'instructer'
       ) {
+        dispatch(setUser(response?.data?.user));
         navigate('/instructer');
       } else {
         //setting msg directly because setState is asynchronous and was causing inconsistency !!

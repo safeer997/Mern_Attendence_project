@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setUser, stopLoading } from './redux/features/authSlice';
 import ProtectedRoute from './uiComponents/ProtectedRoute';
 import ErrorPage from './uiComponents/ErrorPage';
+import DashboardLayout from './layout/DashboardLayout';
+import AuthLayout from './layout/AuthLayout';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,38 +43,27 @@ function App() {
 
   return (
     <Routes>
-      {/* Public Routes */}
-      <Route path='/' element={<Login />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<Signup />} />
+      {/* Auth routes */}
+      <Route element={<AuthLayout />}>
+        <Route path='/' element={<Home />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<Signup />} />
+      </Route>
 
-      {/* Protected Routes */}
+      {/* Protected dashboard routes */}
       <Route
-        path='/student'
         element={
-          <ProtectedRoute allowedRoles={['student']}>
-            <StudentDashboard />
+          <ProtectedRoute allowedRoles={['student', 'instructer']}>
+            <DashboardLayout />
           </ProtectedRoute>
         }
-      />
-      <Route
-        path='/instructer'
-        element={
-          <ProtectedRoute allowedRoles={['instructer']}>
-            <InstructerDashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path='/create-session'
-        element={
-          <ProtectedRoute allowedRoles={['instructer']}>
-            <CreateSession />
-          </ProtectedRoute>
-        }
-      />
+      >
+        <Route path='/student' element={<StudentDashboard />} />
+        <Route path='/instructer' element={<InstructerDashboard />} />
+        <Route path='/create-session' element={<CreateSession />} />
+      </Route>
 
-      {/* error route  */}
+      {/* Error route */}
       <Route path='*' element={<ErrorPage />} />
     </Routes>
   );

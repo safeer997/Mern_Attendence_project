@@ -52,6 +52,7 @@ const login = async (req, res) => {
       success: true,
       message: 'Login successful',
       role,
+      user,
     });
   } catch (error) {
     console.log('Error in login:', error);
