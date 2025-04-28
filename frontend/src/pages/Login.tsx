@@ -33,26 +33,23 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data.phoneNumber, data.password);
-      console.log(response);
+      // console.log('login response :', response);
 
       if (response?.data?.success && response?.data?.role === 'student') {
         navigate('/student');
       } else if (
         response?.data?.success &&
-        response?.data?.role === 'instructor'
+        response?.data?.role === 'instructer'
       ) {
         navigate('/instructer');
       } else {
-        //setting msg directly because setState is asynchronous and was causing inconsistency !! 
-        toast.warning( response?.data?.message);
-
+        //setting msg directly because setState is asynchronous and was causing inconsistency !!
+        toast.warning(response?.data?.message);
       }
     } catch (err) {
       console.error('Login error:', err);
     }
   };
-
-  
 
   return (
     <div className='auth-container'>

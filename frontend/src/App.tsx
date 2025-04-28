@@ -54,7 +54,7 @@ function App() {
       <Route
         path='/create-session'
         element={
-          <ProtectedRoute allowedRoles={['instructor']}>
+          <ProtectedRoute allowedRoles={['instructer']}>
             <CreateSession />
           </ProtectedRoute>
         }

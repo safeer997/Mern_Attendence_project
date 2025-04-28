@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 export const loginUser = async (phoneNumber, password) => {
+  // console.log("trying to login !")
   try {
     const response = await axios.post(
       'http://localhost:3000/auth/login',
