@@ -16,7 +16,7 @@ const login = async (req, res) => {
       user = await Instructor.findOne({
         phoneNumber,
       });
-      role = 'instructor';
+      role = 'instructer';
     }
 
     if (!user) {

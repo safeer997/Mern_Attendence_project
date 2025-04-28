@@ -37,17 +37,18 @@ const Login = () => {
   const onSubmit = async (data) => {
     try {
       const response = await loginUser(data.phoneNumber, data.password);
-      console.log('login response :', response);
-      console.log('trying to login student');
+      // console.log('login response :', response);
+      // console.log('trying to login student');
 
       if (response?.data?.success && response?.data?.role === 'student') {
-        // console.log('this line is getting console logged !!!');
+        // console.log('this student line is getting console logged !!!');
         dispatch(setUser(response?.data?.user));
         navigate('/student');
       } else if (
         response?.data?.success &&
         response?.data?.role === 'instructer'
       ) {
+        // console.log('this instructer line is getting console logged !!!');
         dispatch(setUser(response?.data?.user));
         navigate('/instructer');
       } else {

@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import AppSidebar from '../uiComponents/AppSidebar';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 
-function DashboardLayout() {
+function StudentDashboardLayout() {
   return (
     <div className='flex'>
       <AppSidebar />
@@ -14,4 +14,4 @@ function DashboardLayout() {
   );
 }
 
-export default DashboardLayout;
+export default StudentDashboardLayout;
