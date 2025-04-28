@@ -2,13 +2,18 @@ import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function ProtectedRoute({ children, allowedRoles }) {
-  const user = useSelector((state) => state.auth.user);
+  // const user = useSelector((state) => state.auth.user);
+  const { user, isAuthenticated, loading } = useSelector((state) => state.auth);
 
-  if (!user) {
-    return <Navigate to='/login' />;
+  if (loading) {
+    return (
+      <div className='flex justify-center items-center min-h-screen text-xl'>
+        Loading...
+      </div>
+    );
   }
 
-  if (!allowedRoles.includes(user.role)) {
+  if (!isAuthenticated || !user || !allowedRoles.includes(user.role)) {
     return <Navigate to='/login' />;
   }
 

@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL || '';
+
 export const loginUser = async (phoneNumber, password) => {
   // console.log("trying to login !")
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/login',
+      `${apiUrl}/auth/login`,
       {
         phoneNumber,
         password,
@@ -21,7 +23,7 @@ export const loginUser = async (phoneNumber, password) => {
 export const logout = async () => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/logout',
+      `${apiUrl}/auth/logout`,
       {},
       { withCredentials: true }
     );
@@ -36,7 +38,7 @@ export const logout = async () => {
 export const signupUser = async (userData) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/auth/signup',
+      `${apiUrl}/auth/signup`,
       userData,
       { withCredentials: true }
     );
@@ -50,7 +52,7 @@ export const signupUser = async (userData) => {
 
 export const verifyUser = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/auth/verifyUser', {
+    const response = await axios.get(`${apiUrl}/auth/verifyUser`, {
       withCredentials: true,
     });
     return response;

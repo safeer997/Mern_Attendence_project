@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL || '';
+
 export const getTodaySessions = async () => {
   try {
     const response = await axios.get(
-      'http://localhost:3000/students/todaySessions',
+      `${apiUrl}/students/todaySessions`,
       {
         withCredentials: true,
       }
@@ -18,7 +20,7 @@ export const getTodaySessions = async () => {
 export const markAttendance = async (sessionId) => {
   try {
     const response = await axios.post(
-      `http://localhost:3000/attendance/${sessionId}`,
+      `${apiUrl}/attendance/${sessionId}`,
       sessionId,
       {
         withCredentials: true,

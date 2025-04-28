@@ -1,9 +1,11 @@
 import axios from 'axios';
 
+const apiUrl = import.meta.env.VITE_API_URL || '';
+
 export const createSession = async (data) => {
   try {
     const response = await axios.post(
-      'http://localhost:3000/classSession/createSession',
+      `${apiUrl}/classSession/createSession`,
       data,
       { withCredentials: true }
     );
