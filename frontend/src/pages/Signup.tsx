@@ -25,13 +25,14 @@ import {
 } from '@/components/ui/select';
 
 import { useNavigate } from 'react-router-dom';
-import { useState } from 'react';
 
 import { toast } from 'sonner';
+import { useDispatch } from 'react-redux';
+import { setUser } from '@/redux/features/authSlice';
 
 const Signup = () => {
-  const [signupFailureMessage, setSignupFailureMessage] = useState('');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -49,14 +50,17 @@ const Signup = () => {
       const response = await signupUser(data);
       // console.log("signup res :",response)
       if (response?.data?.success === true && data?.role === 'student') {
+        console.log('student res:', response);
+        dispatch(setUser(response?.data?.data));
         navigate('/student');
       } else if (
         response?.data?.success === true &&
         data?.role === 'instructer'
       ) {
+        dispatch(setUser(response?.data?.data));
         navigate('/instructer');
       } else {
-        toast.warning( response?.data?.message);
+        toast.warning(response?.data?.message);
       }
     } catch (error) {
       console.error('Signup failed:', error);
@@ -157,11 +161,7 @@ const Signup = () => {
                     </FormItem>
                   )}
                 />
-                {signupFailureMessage && (
-                  <div className='error-message '>
-                    <p className='text-red-500'>{signupFailureMessage}</p>
-                  </div>
-                )}
+
                 <Button type='submit'>Sign Up</Button>
               </form>
             </Form>

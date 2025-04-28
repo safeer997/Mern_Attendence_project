@@ -4,7 +4,7 @@ import { SidebarTrigger } from '@/components/ui/sidebar';
 
 function StudentDashboardLayout() {
   return (
-    <div className='flex'>
+    <div className="w-full flex justify-center  min-h-screen">
       <AppSidebar />
       <SidebarTrigger />
       <div className='flex-1'>
