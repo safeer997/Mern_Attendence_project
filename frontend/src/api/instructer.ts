@@ -11,7 +11,7 @@ export const createSession = async (data) => {
     );
     return response;
   } catch (error) {
-    console.log('Error logging in:', error);
+    console.log('Error creating class session:', error);
     return error.response;
   }
 };

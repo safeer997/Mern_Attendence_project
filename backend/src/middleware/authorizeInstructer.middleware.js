@@ -1,5 +1,5 @@
 const authorizeInstructor = (req, res, next) => {
-  if (req.user.role !== 'instructor') {
+  if (req.user.role !== 'instructer') {
     return res.status(403).json({
       success: false,
       message: 'Access denied. Only instructors can perform this action.',
