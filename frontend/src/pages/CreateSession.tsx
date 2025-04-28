@@ -17,7 +17,7 @@ import { toast } from 'sonner';
 import { createSessionSchema } from '@/zodSchema/createSessionSchema';
 import { classStudents } from '../utils/classStudents';
 import { createSession } from '@/api/instructer';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const CreateSession = () => {
   const classStudentsList = classStudents;

@@ -1,7 +1,6 @@
-import CreateSession from '@/pages/CreateSession';
+
 import DashboardCard from '@/uiComponents/DashboardCard';
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 
 const InstructerDashboard = () => {
   const navigate = useNavigate();

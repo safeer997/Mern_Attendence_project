@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getTodaySessions, markAttendance } from '@/api/student'; // Create these APIs
+import { getTodaySessions, markAttendance } from '@/api/student';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 
@@ -9,7 +9,7 @@ const StudentDashboard = () => {
   useEffect(() => {
     async function fetchSessions() {
       try {
-        const response = await getTodaySessions(); // API to get today's sessions
+        const response = await getTodaySessions();
         console.log('api res:', response);
         setSessions(response?.data?.data);
       } catch (error) {

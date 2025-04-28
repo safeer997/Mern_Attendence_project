@@ -24,7 +24,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
 import { toast } from 'sonner';
