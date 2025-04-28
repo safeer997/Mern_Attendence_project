@@ -11,6 +11,7 @@ import { verifyUser } from './api/auth';
 import { useDispatch } from 'react-redux';
 import { setUser } from './redux/features/authSlice';
 import ProtectedRoute from './uiComponents/ProtectedRoute';
+import ErrorPage from './uiComponents/ErrorPage';
 
 function App() {
   const dispatch = useDispatch();
@@ -27,14 +28,6 @@ function App() {
     fetchData();
   }, [dispatch]);
   return (
-    // <Routes>
-    //   <Route path='/' element={<Login />} />
-    //   <Route path='/login' element={<Login />} />
-    //   <Route path='/signup' element={<Signup />} />
-    //   <Route path='/student' element={<StudentDashboard />} />
-    //   <Route path='/instructer' element={<InstructerDashboard />} />
-    //   <Route path='/create-session' element={<CreateSession />} />
-    // </Routes>
     <Routes>
       {/* Public Routes */}
       <Route path='/' element={<Home />} />
@@ -51,9 +44,9 @@ function App() {
         }
       />
       <Route
-        path='/instructor'
+        path='/instructer'
         element={
-          <ProtectedRoute allowedRoles={['instructor']}>
+          <ProtectedRoute allowedRoles={['instructer']}>
             <InstructerDashboard />
           </ProtectedRoute>
         }
@@ -66,6 +59,9 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      {/* error route  */}
+      <Route path='*' element={<ErrorPage />} />
     </Routes>
   );
 }
