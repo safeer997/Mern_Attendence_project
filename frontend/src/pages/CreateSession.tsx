@@ -12,19 +12,27 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { createSessionSchema } from '@/zodSchema/createSessionSchema';
-import { classStudents } from '../utils/classStudents';
-import { createSession } from '@/api/instructer';
+import { createSession, fetchAllStudents } from '@/api/instructer';
 import { useNavigate } from 'react-router-dom';
 
 const CreateSession = () => {
-  const classStudentsList = classStudents;
+  const [classStudentsList, setClassStudentsList] = useState([]);
   const [searchText, setSearchText] = useState('');
   const [selectedStudents, setSelectedStudents] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    async function getStudentsList() {
+      const response = await fetchAllStudents();
+      console.log('students list fetched :', response);
+      setClassStudentsList(response?.data?.data);
+    }
+    getStudentsList();
+  }, []);
 
   const form = useForm({
     resolver: zodResolver(createSessionSchema),
@@ -56,9 +64,8 @@ const CreateSession = () => {
     const formData = { ...data, onlineStudents: selectedStudents };
     const response = await createSession(formData);
     // console.log(response)
-    toast( response?.data?.message);
-    navigate("/instructer")
-    
+    toast(response?.data?.message);
+    navigate('/instructer');
   }
 
   return (

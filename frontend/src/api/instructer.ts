@@ -15,3 +15,15 @@ export const createSession = async (data) => {
     return error.response;
   }
 };
+
+export const fetchAllStudents = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/students/getAllStudents`, {
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.log('Error fetching students list:', error);
+    return error.response;
+  }
+};
