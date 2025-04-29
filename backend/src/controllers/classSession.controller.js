@@ -84,7 +84,7 @@ const createSession = async (req, res) => {
     // Run automated attendance marking function
     setTimeout(() => {
       markAbsentStudents(session._id);
-    }, 60 * 60 * 1000);
+    }, 60 * 60 * 1000 );
 
     //--------------------------------------------------------
 
@@ -155,4 +155,40 @@ const getSession = async (req, res) => {
   }
 };
 
-export { createSession, getSession, getAllSessions };
+// GET SESSIONS OF A PARTICULAR INSTRUCTOR
+
+const getSessionOfInstructer = async (req, res) => {
+  try {
+    const instructorId = req.user.id;
+
+    if (!instructorId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized. Instructor ID missing.',
+      });
+    }
+
+    const sessions = await ClassSession.find({ instructor: instructorId });
+
+    if (sessions.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No sessions found for this instructor.',
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Instructor sessions fetched successfully',
+      data: sessions,
+    });
+  } catch (error) {
+    console.log('Error :', error);
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+    });
+  }
+};
+
+export { createSession, getSession, getAllSessions, getSessionOfInstructer };
