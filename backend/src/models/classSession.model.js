@@ -46,13 +46,13 @@ const classSessionSchema = new Schema(
 
 // Update student lists based on attendance records
 classSessionSchema.methods.refreshAttendanceLists = async function () {
-  console.log("refresh attendence list executing !")
+  // console.log("refresh attendence list executing !")
   const records = await Attendance.find({ classSession: this._id }).populate(
     'student',
     'name phoneNumber email'
   );
 
-  console.log("records :",records)
+  // console.log("records :",records)
 
   this.onlineStudents = [];
   this.offlineStudents = [];

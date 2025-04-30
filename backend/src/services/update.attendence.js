@@ -3,6 +3,7 @@ import { Student } from '../models/student.model.js';
 import { ClassSession } from '../models/classSession.model.js';
 
 const markAbsentStudents = async (sessionId) => {
+  console.log('mark absent students function running !!!');
   try {
     const allStudents = await Student.find({});
     if (allStudents.length === 0) {
@@ -21,7 +22,6 @@ const markAbsentStudents = async (sessionId) => {
           classSession: sessionId,
           status: 'absent',
         });
-        absentCount++;
       }
     }
 
@@ -30,7 +30,7 @@ const markAbsentStudents = async (sessionId) => {
     if (session) {
       session.status = 'finalized';
       await session.refreshAttendanceLists();
-      // console.log(`Session ${sessionId} finalized & lists refreshed.`);
+      console.log(`Session ${sessionId} finalized & lists refreshed.`,session);
     }
   } catch (error) {
     console.error(`Error in markAbsentStudents(${sessionId}):`, error);

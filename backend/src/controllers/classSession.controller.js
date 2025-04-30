@@ -70,10 +70,10 @@ const createSession = async (req, res) => {
       });
     }
 
-    // Run automated attendance marking function
-    setTimeout(() => {
-      markAbsentStudents(session._id);
-    }, 60 * 60 * 1000);
+    // // Run automated attendance marking function
+    // setTimeout(() => {
+    //   markAbsentStudents(session._id);
+    // }, 30000);
 
     //--------------------------------------------------------
 
@@ -138,7 +138,7 @@ const getAllSessions = async (req, res) => {
       });
     }
 
-    await Promise.all(sessions.map(s => s.refreshAttendanceLists()));
+    await Promise.all(sessions.map((s) => s.refreshAttendanceLists()));
 
     return res.status(201).json({
       success: true,
