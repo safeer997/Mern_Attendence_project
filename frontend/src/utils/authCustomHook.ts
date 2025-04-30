@@ -9,9 +9,9 @@ const useAuth = () => {
   useEffect(() => {
     const loadUser = async () => {
       try {
-        console.log('my custom hook running !!!');
+        // console.log('my custom hook running !!!');
         const response = await verifyUser();
-        console.log('hook api res :', response);
+        // console.log('hook api res :', response);
         if (response?.data?.success) {
           dispatch(setUser(response.data.data));
         } else {

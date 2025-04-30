@@ -48,21 +48,17 @@ const Signup = () => {
   const onSubmit = async (data) => {
     try {
       const response = await signupUser(data);
-      // console.log("signup res :",response)
       if (response?.data?.success === true && data?.role === 'student') {
         console.log('student res:', response);
         dispatch(setUser(response?.data?.data));
-        setTimeout(() => {
-          navigate('/student');
-        }, 1000);
+        navigate('/student');
       } else if (
         response?.data?.success === true &&
         data?.role === 'instructer'
       ) {
         dispatch(setUser(response?.data?.data));
-        setTimeout(() => {
-          navigate('/instructer');
-        }, 1000);
+
+        navigate('/instructer');
       } else {
         toast.warning(response?.data?.message);
       }

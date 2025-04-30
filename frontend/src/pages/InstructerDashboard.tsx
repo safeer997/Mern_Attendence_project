@@ -1,10 +1,7 @@
 import DashboardCard from '@/uiComponents/DashboardCard';
-import useAuth from '@/utils/authCustomHook';
 import { useNavigate } from 'react-router-dom';
 
 const InstructerDashboard = () => {
-  
-  useAuth(); //check whetr user is logged in !!!
   const navigate = useNavigate();
 
   function handleCreateSession() {
@@ -35,7 +32,7 @@ const InstructerDashboard = () => {
       />
       <DashboardCard
         title='View Student Records'
-        description='Access student attendance and performance data for each session.'
+        description='Feature coming soon ...'
         buttonName='View Students Record'
         buttonAction={handleViewStudentRecords}
       />
