@@ -24,6 +24,13 @@ const markAttendance = async (req, res) => {
       });
     }
 
+    if (session.status === 'finalized') {
+      return res.status(401).json({
+        success: false,
+        message: 'Attendence window closed',
+      });
+    }
+
     //checking student
     const student = await Student.findOne({ phoneNumber });
 
@@ -54,7 +61,7 @@ const markAttendance = async (req, res) => {
 
     if (studentIp === accioCenterIpAddress) {
       //mark attendance
-      
+
       const attendance = await Attendance.create({
         student: student._id,
         classSession: session._id,

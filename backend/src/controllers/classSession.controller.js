@@ -2,13 +2,6 @@ import { ClassSession } from '../models/classSession.model.js';
 import { Instructor } from '../models/instructor.model.js';
 import markAbsentStudents from '../services/update.attendence.js';
 
-// Function to generate attendance link
-const generateAttendanceLink = (sessionId) => {
-  return `http://localhost:3000/attendance/${sessionId}`;
-};
-
-//--------------------------------------------------------------------------------------------------
-
 const createSession = async (req, res) => {
   const { topic, sessionDate, onlineStudents = [] } = req.body;
   try {
@@ -60,13 +53,9 @@ const createSession = async (req, res) => {
       instructor: instructorId,
       sessionDate: sessionDate,
       onlineStudents,
+      status: 'draft',
     });
 
-    // Generating attendance link
-    const attendanceLink = generateAttendanceLink(session._id);
-
-    // Updating session with the attendance link
-    session.attendanceLink = attendanceLink;
     await session.save();
 
     // Fetching the created session with instructor details
@@ -84,7 +73,7 @@ const createSession = async (req, res) => {
     // Run automated attendance marking function
     setTimeout(() => {
       markAbsentStudents(session._id);
-    }, 60 * 60 * 1000 );
+    }, 60 * 60 * 1000);
 
     //--------------------------------------------------------
 
@@ -92,6 +81,42 @@ const createSession = async (req, res) => {
       success: true,
       message: 'Class session successfully created',
       data: createdSession,
+    });
+  } catch (error) {
+    console.log('Error :', error);
+    res.status(500).json({
+      success: false,
+      message: 'Something went wrong',
+    });
+  }
+};
+
+const getSessionOfInstructer = async (req, res) => {
+  try {
+    const instructorId = req.user.id;
+
+    if (!instructorId) {
+      return res.status(401).json({
+        success: false,
+        message: 'Unauthorized. Instructor ID missing.',
+      });
+    }
+
+    const sessions = await ClassSession.find({ instructor: instructorId });
+
+    if (sessions.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: 'No sessions found for this instructor.',
+      });
+    }
+
+    await Promise.all(sessions.map((s) => s.refreshAttendanceLists()));
+
+    return res.status(200).json({
+      success: true,
+      message: 'Instructor sessions fetched successfully',
+      data: sessions,
     });
   } catch (error) {
     console.log('Error :', error);
@@ -112,6 +137,8 @@ const getAllSessions = async (req, res) => {
         message: 'No session record exists',
       });
     }
+
+    await Promise.all(sessions.map(s => s.refreshAttendanceLists()));
 
     return res.status(201).json({
       success: true,
@@ -141,6 +168,8 @@ const getSession = async (req, res) => {
       });
     }
 
+    await session.refreshAttendanceLists();
+
     return res.status(201).json({
       success: true,
       message: 'Session data fetched successfully',
@@ -156,39 +185,5 @@ const getSession = async (req, res) => {
 };
 
 // GET SESSIONS OF A PARTICULAR INSTRUCTOR
-
-const getSessionOfInstructer = async (req, res) => {
-  try {
-    const instructorId = req.user.id;
-
-    if (!instructorId) {
-      return res.status(401).json({
-        success: false,
-        message: 'Unauthorized. Instructor ID missing.',
-      });
-    }
-
-    const sessions = await ClassSession.find({ instructor: instructorId });
-
-    if (sessions.length === 0) {
-      return res.status(404).json({
-        success: false,
-        message: 'No sessions found for this instructor.',
-      });
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Instructor sessions fetched successfully',
-      data: sessions,
-    });
-  } catch (error) {
-    console.log('Error :', error);
-    res.status(500).json({
-      success: false,
-      message: 'Something went wrong',
-    });
-  }
-};
 
 export { createSession, getSession, getAllSessions, getSessionOfInstructer };
