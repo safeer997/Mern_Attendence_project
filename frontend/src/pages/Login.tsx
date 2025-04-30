@@ -16,7 +16,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import '../styles/auth.styles.css';
-import { toast } from 'sonner';
+// import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/authSlice';
 
@@ -52,8 +52,10 @@ const Login = () => {
         dispatch(setUser(response?.data?.user));
         navigate('/instructer');
       } else {
-        //setting msg directly because setState is asynchronous and was causing inconsistency !!
-        toast.warning(response?.data?.message);
+        // if (!toastMessageShown) {
+        //   toast.warning(response?.data?.message);
+        //   toastMessageShown = true;
+        // }
       }
     } catch (err) {
       console.error('Login error:', err);
