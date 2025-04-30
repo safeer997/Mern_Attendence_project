@@ -11,6 +11,9 @@ import classSessionRoutes from './routes/classSession.route.js';
 import markAttendanceRoutes from './routes/attendance.route.js';
 import authRoutes from './routes/auth.route.js';
 
+//running cron jobs
+import './jobs/markAbsentJob.js';
+
 // Load environment variables
 dotenv.config();
 
