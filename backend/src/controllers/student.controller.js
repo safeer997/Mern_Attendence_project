@@ -27,12 +27,6 @@ const registerStudent = async (req, res) => {
       });
     }
 
-    //hashing password
-
-    // this step will done by mongoose hook as we have defined in student model !!
-
-    // creating student in database
-
     const student = await Student.create({
       name,
       password,
@@ -52,6 +46,27 @@ const registerStudent = async (req, res) => {
         message: 'error creating student in database',
       });
     }
+
+    //sigingn token so that first time users can stay logged in!!
+
+    const token = jwt.sign(
+      {
+        id: createdStudent._id,
+        role: 'student',
+        phoneNumber: createdStudent.phoneNumber,
+        email: createdStudent.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    );
+
+    res.cookie('authToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
 
     return res.status(201).json({
       success: true,

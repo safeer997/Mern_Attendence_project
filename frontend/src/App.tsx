@@ -6,10 +6,6 @@ import Login from './pages/Login';
 
 import InstructerDashboard from './pages/InstructerDashboard';
 import CreateSession from './pages/CreateSession';
-import { useEffect } from 'react';
-import { verifyUser } from './api/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { setUser, stopLoading } from './redux/features/authSlice';
 import ProtectedRoute from './uiComponents/ProtectedRoute';
 import ErrorPage from './uiComponents/ErrorPage';
 import AuthLayout from './layout/AuthLayout';
@@ -17,32 +13,10 @@ import InstructerDashboardLayout from './layout/InstructerDashboardLayout';
 import StudentDashboardLayout from './layout/StudentDashboardLayout';
 import PastSessions from './pages/PastSessions';
 import AttendenceReport from './pages/AttendenceReport';
+import useAuth from './utils/authCustomHook';
 
 function App() {
-  const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth); //swiglly line due to type checking !!!
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await verifyUser();
-        console.log('data when app loads:', response);
-        dispatch(setUser(response?.data?.data));
-      } catch (error) {
-        console.error('Error verifying user:', error);
-        dispatch(stopLoading());
-      }
-    };
-    fetchData();
-  }, [dispatch]);
-
-  if (loading) {
-    return (
-      <div className='flex justify-center items-center min-h-screen text-xl'>
-        Loading...
-      </div>
-    );
-  }
+  useAuth();
 
   return (
     <Routes>

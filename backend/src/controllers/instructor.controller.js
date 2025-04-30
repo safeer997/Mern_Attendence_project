@@ -1,10 +1,13 @@
 import { Instructor } from '../models/instructor.model.js';
+import jwt from 'jsonwebtoken';
 
 const registerInstructor = async (req, res) => {
   const { name, email, password, phoneNumber } = req.body;
 
   try {
-    if ([name, email, password, phoneNumber].some((field) => field?.trim() === '')) {
+    if (
+      [name, email, password, phoneNumber].some((field) => field?.trim() === '')
+    ) {
       return res.status(400).json({
         success: false,
         message: 'All details are required',
@@ -22,9 +25,16 @@ const registerInstructor = async (req, res) => {
       });
     }
 
-    const instructor = await Instructor.create({ name, password, phoneNumber, email });
+    const instructor = await Instructor.create({
+      name,
+      password,
+      phoneNumber,
+      email,
+    });
 
-    const createdInstructor = await Instructor.findById(instructor._id).select('-password');
+    const createdInstructor = await Instructor.findById(instructor._id).select(
+      '-password'
+    );
 
     if (!createdInstructor) {
       return res.status(500).json({
@@ -32,6 +42,26 @@ const registerInstructor = async (req, res) => {
         message: 'Error creating instructor in database',
       });
     }
+
+    //creating to store auth token which was causing bug of unathorization while signing up for first time !!
+    const token = jwt.sign(
+      {
+        id: createdInstructor._id,
+        role: 'instructer',
+        phoneNumber: createdInstructor.phoneNumber,
+        email: createdInstructor.email,
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1d',
+      }
+    );
+
+    res.cookie('authToken', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'strict',
+    });
 
     return res.status(201).json({
       success: true,
@@ -47,7 +77,7 @@ const registerInstructor = async (req, res) => {
   }
 };
 
-//GET ALL INSTRUCTERS 
+//GET ALL INSTRUCTERS
 
 const getAllInstructors = async (req, res) => {
   try {
@@ -80,7 +110,9 @@ const getInstructor = async (req, res) => {
   const { instructorId } = req.params;
 
   try {
-    const instructor = await Instructor.findById(instructorId).select('-password');
+    const instructor = await Instructor.findById(instructorId).select(
+      '-password'
+    );
 
     if (!instructor) {
       return res.status(404).json({

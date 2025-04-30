@@ -52,13 +52,17 @@ const Signup = () => {
       if (response?.data?.success === true && data?.role === 'student') {
         console.log('student res:', response);
         dispatch(setUser(response?.data?.data));
-        navigate('/student');
+        setTimeout(() => {
+          navigate('/student');
+        }, 1000);
       } else if (
         response?.data?.success === true &&
         data?.role === 'instructer'
       ) {
         dispatch(setUser(response?.data?.data));
-        navigate('/instructer');
+        setTimeout(() => {
+          navigate('/instructer');
+        }, 1000);
       } else {
         toast.warning(response?.data?.message);
       }

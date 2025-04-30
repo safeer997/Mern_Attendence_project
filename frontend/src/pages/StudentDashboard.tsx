@@ -2,16 +2,22 @@ import { useEffect, useState } from 'react';
 import { getTodaySessions, markAttendance } from '@/api/student';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import useAuth from '@/utils/authCustomHook';
 
 const StudentDashboard = () => {
   const [sessions, setSessions] = useState([]);
+
+  useAuth(); //check whetr user is logged in !!!
 
   useEffect(() => {
     async function fetchSessions() {
       try {
         const response = await getTodaySessions();
-        console.log('api res:', response);
-        setSessions(response?.data?.data);
+        const sortedSessions = response?.data?.data?.sort((a, b) => {
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+
+        setSessions(sortedSessions);
       } catch (error) {
         console.error(error);
       }
@@ -22,7 +28,7 @@ const StudentDashboard = () => {
   const handleMarkAttendance = async (sessionId) => {
     try {
       const response = await markAttendance(sessionId);
-      console.log('mark attendence :', response);
+      // console.log('mark attendence :', response);
       toast.success(response?.data?.message || 'Attendance marked!');
     } catch (error) {
       console.error(error);
@@ -32,7 +38,7 @@ const StudentDashboard = () => {
 
   return (
     <div className='p-8'>
-      <h1 className='text-2xl font-bold mb-4'>Today's Sessions</h1>
+      <h1 className='text-2xl font-bold mb-4'>Recent Sessions</h1>
       <div className='space-y-4'>
         {sessions.map((session) => (
           <div

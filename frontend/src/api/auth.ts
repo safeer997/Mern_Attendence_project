@@ -57,7 +57,7 @@ export const verifyUser = async () => {
     });
     return response;
   } catch (error) {
-    console.log('Error verifying user on app load:', error);
+    console.log('Error verifying user !!:', error);
     return error.response;
   }
 };
