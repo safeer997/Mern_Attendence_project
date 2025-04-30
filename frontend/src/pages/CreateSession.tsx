@@ -28,7 +28,7 @@ const CreateSession = () => {
   useEffect(() => {
     async function getStudentsList() {
       const response = await fetchAllStudents();
-      console.log('students list fetched :', response);
+      // console.log('students list fetched :', response);
       setClassStudentsList(response?.data?.data);
     }
     getStudentsList();

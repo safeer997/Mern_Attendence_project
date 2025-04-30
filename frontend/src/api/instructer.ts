@@ -27,3 +27,23 @@ export const fetchAllStudents = async () => {
     return error.response;
   }
 };
+
+export const fetchAllSessionsOfInstructer = async () => {
+  try {
+    const response = await axios.get(
+      `${apiUrl}/classSession/getSessionOfInstructer`,
+      {
+        withCredentials: true,
+      }
+    );
+    return response;
+  } catch (error) {
+    console.log(
+      'Error fetching sessions of a particular instructer list:',
+      error
+    );
+    return error.response;
+  }
+};
+
+

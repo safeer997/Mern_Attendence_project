@@ -15,6 +15,7 @@ import ErrorPage from './uiComponents/ErrorPage';
 import AuthLayout from './layout/AuthLayout';
 import InstructerDashboardLayout from './layout/InstructerDashboardLayout';
 import StudentDashboardLayout from './layout/StudentDashboardLayout';
+import PastSessions from './pages/PastSessions';
 
 function App() {
   const dispatch = useDispatch();
@@ -73,6 +74,7 @@ function App() {
       >
         <Route path='/instructer' element={<InstructerDashboard />} />
         <Route path='/create-session' element={<CreateSession />} />
+        <Route path='/past-sessions' element={<PastSessions />} />
       </Route>
 
       {/* Error route */}

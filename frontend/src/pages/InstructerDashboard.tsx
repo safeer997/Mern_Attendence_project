@@ -1,4 +1,3 @@
-
 import DashboardCard from '@/uiComponents/DashboardCard';
 import { useNavigate } from 'react-router-dom';
 
@@ -7,12 +6,10 @@ const InstructerDashboard = () => {
 
   function handleCreateSession() {
     navigate('/create-session');
-
-    console.log('creating sessions');
   }
 
   function handleViewPastSessions() {
-    console.log('viewing past sessions');
+    navigate('/past-sessions');
   }
 
   function handleViewStudentRecords() {
