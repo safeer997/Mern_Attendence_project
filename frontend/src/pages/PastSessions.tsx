@@ -8,15 +8,16 @@ import {
 import { Button } from '@/components/ui/button';
 import { useEffect, useState } from 'react';
 import { fetchAllSessionsOfInstructer } from '@/api/instructer';
+import { useNavigate } from 'react-router';
 
 const PastSessions = () => {
-  //getting past sessions
   const [sessions, setSessions] = useState([]);
+  const navigate = useNavigate();
+  const [sessionStatusDraft, setSessionStatusDraft] = useState(false);
 
   useEffect(() => {
     async function getSessions() {
       const response = await fetchAllSessionsOfInstructer();
-      // console.log('sessions response from api!!', response);
       const sortedSessions = response?.data?.data?.sort((a, b) => {
         return new Date(b.createdAt) - new Date(a.createdAt);
       });
@@ -27,8 +28,9 @@ const PastSessions = () => {
     getSessions();
   }, []);
 
-  function handleGetDetailedReport() {
-    console.log('getting detailes report !');
+  function handleGetDetailedReport(session) {
+    localStorage.setItem('selectedSession', JSON.stringify(session));
+    navigate('/report');
   }
 
   return (
@@ -51,12 +53,18 @@ const PastSessions = () => {
                 <div>🔴 Absent: {session.absentStudents.length}</div>
               </div>
               <Button
-                onClick={handleGetDetailedReport}
+                onClick={() => handleGetDetailedReport(session)}
                 variant='outline'
                 className='w-full'
+                disabled={session.status === 'draft'}
               >
                 Get Detailed Report
               </Button>
+              {session.status === 'draft' && (
+                <p className='text-sm text-muted-foreground'>
+                  Report will be available in 1 hour after session creation.
+                </p>
+              )}
             </CardContent>
           </Card>
         ))}
