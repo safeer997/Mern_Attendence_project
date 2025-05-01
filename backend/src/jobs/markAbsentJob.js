@@ -7,10 +7,10 @@ cron.schedule('0 * * * *', async () => {
   // console.log(`[CRON] Job started at ${new Date().toLocaleString()}`);
   try {
     const now = new Date();
-    const tenMinutesAgo = new Date(now.getTime() - 10 * 60 * 1000);
+    const onHourAgo = new Date(now.getTime() - 59 * 60 * 1000);
     const sessions = await ClassSession.find({
       status: 'draft',
-      createdAt: { $lte: tenMinutesAgo },
+      createdAt: { $lte: onHourAgo },
     });
 
     if (sessions.length === 0) {
