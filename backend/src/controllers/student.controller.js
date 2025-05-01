@@ -148,12 +148,11 @@ const getTodaySessions = async (req, res) => {
     // tomorrow.setDate(today.getDate() + 1);
 
     const end = new Date();
-    end.setHours(0, 0, 0, 0);
     // Start is 7 days before now
     const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     const sessions = await ClassSession.find({
-      sessionDate: { $gte: start, $lte: end },
+      sessionDate: { $gte: start },
     });
 
     return res.status(201).json({
