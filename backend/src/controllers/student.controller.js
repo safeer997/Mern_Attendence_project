@@ -141,19 +141,24 @@ const getStudent = async (req, res) => {
 
 const getTodaySessions = async (req, res) => {
   try {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    // const today = new Date();
+    // today.setHours(0, 0, 0, 0);
 
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
+    // const tomorrow = new Date(today);
+    // tomorrow.setDate(today.getDate() + 1);
+
+    const end = new Date();
+
+    // Start is 7 days before now
+    const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
 
     const sessions = await ClassSession.find({
-      sessionDate: { $gte: today, $lt: tomorrow },
+      sessionDate: { $gte: start, $lte: end },
     });
 
     return res.status(201).json({
       success: true,
-      message: 'today sessions data fetched.',
+      message: 'past week sessions data fetched.',
       data: sessions,
     });
   } catch (error) {
