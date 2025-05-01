@@ -13,6 +13,7 @@ const StudentDashboard = () => {
     async function fetchSessions() {
       try {
         const response = await getTodaySessions();
+        // console.log("student dashboard response :",response)
         const sortedSessions = response?.data?.data?.sort((a, b) => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
