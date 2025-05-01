@@ -1,7 +1,9 @@
 import DashboardCard from '@/uiComponents/DashboardCard';
+import useAuth from '@/utils/authCustomHook';
 import { useNavigate } from 'react-router-dom';
 
 const InstructerDashboard = () => {
+  useAuth();
   const navigate = useNavigate();
 
   function handleCreateSession() {
