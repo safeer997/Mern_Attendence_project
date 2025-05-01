@@ -66,7 +66,7 @@ const Login = () => {
     <div className='auth-container'>
       <Card className='auth-card'>
         <CardHeader>
-          <CardTitle className='auth-title'>Mark My Attendance</CardTitle>
+          <CardTitle className='auth-title'>Mark My Attendence</CardTitle>
         </CardHeader>
         <CardContent className='auth-content'>
           <Form {...form}>
