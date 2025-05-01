@@ -61,6 +61,8 @@ const registerInstructor = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',            
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     return res.status(201).json({

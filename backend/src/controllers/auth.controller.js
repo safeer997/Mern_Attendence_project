@@ -42,12 +42,14 @@ const login = async (req, res) => {
       }
     );
 
-    console.log("setting cookie!")
+    console.log('setting cookie!');
 
     res.cookie('authToken', token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({
@@ -71,6 +73,8 @@ const logout = async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     return res.status(200).json({

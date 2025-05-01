@@ -63,9 +63,11 @@ const registerStudent = async (req, res) => {
     );
 
     res.cookie('authToken', token, {
-      httpOnly: true ,
+      httpOnly: true,
       secure: true,
       sameSite: 'none',
+      path: '/',
+      maxAge: 24 * 60 * 60 * 1000,
     });
 
     return res.status(201).json({
