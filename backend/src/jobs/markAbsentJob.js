@@ -3,8 +3,8 @@ import { ClassSession } from '../models/classSession.model.js';
 import markAbsentStudents from '../services/update.attendence.js';
 
 
-cron.schedule('0 * * * *', async () => {
-  // console.log(`[CRON] Job started at ${new Date().toLocaleString()}`);
+cron.schedule('* * * * *', async () => {
+  console.log(`[CRON] Job started at ${new Date().toLocaleString()}`);
   try {
     const now = new Date();
     const onHourAgo = new Date(now.getTime() - 59 * 60 * 1000);
