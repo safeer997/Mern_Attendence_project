@@ -6,6 +6,8 @@ const markAttendance = async (req, res) => {
   const studentIp = req.ip;
   const { sessionId } = req.params;
 
+  console.log('student ip in deployment :', studentIp);  //keeping for fetching the right ip 
+
   if (!sessionId?.trim()) {
     return res.status(400).json({
       success: false,
