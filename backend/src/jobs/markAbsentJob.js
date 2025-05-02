@@ -3,14 +3,14 @@ import { ClassSession } from '../models/classSession.model.js';
 import markAbsentStudents from '../services/update.attendence.js';
 
 
-cron.schedule('* * * * *', async () => {
+cron.schedule('/10 * * * *', async () => {
   console.log(`[CRON] Job started at ${new Date().toLocaleString()}`);
   try {
     const now = new Date();
     const onHourAgo = new Date(now.getTime() - 59 * 60 * 1000);
     const sessions = await ClassSession.find({
       status: 'draft',
-      createdAt: { $lte: onHourAgo },
+      createdAt: { $lt: onHourAgo },
     });
 
     if (sessions.length === 0) {

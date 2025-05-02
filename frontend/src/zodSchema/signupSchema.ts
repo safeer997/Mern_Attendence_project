@@ -4,7 +4,7 @@ export const signupSchema = z.object({
   name: z
     .string()
     .min(2, 'Username must be at least 2 characters')
-    .max(15, 'Username must not be more than 15 characetrs'),
+    .max(50, 'Username must not be more than 50 characetrs'),
   email: z.string().email({ message: 'Invalid email address' }),
   phoneNumber: z
     .string()
@@ -12,7 +12,7 @@ export const signupSchema = z.object({
     .max(10, 'Phone number must be 10 digits'),
   password: z
     .string()
-    .min(6, { message: 'Password must be at least 6 characters' }),
+    .min(4, { message: 'Password must be at least 6 characters' }),
   role: z.enum(['student', 'instructer'], {
     required_error: 'Role is required',
   }),
