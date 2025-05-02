@@ -62,7 +62,7 @@ const Signup = () => {
         navigate('/instructer');
         return;
       }
-
+      
       toast.warning(response?.data?.message);
     } catch (error) {
       console.error('Signup failed:', error);

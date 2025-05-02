@@ -19,10 +19,12 @@ import '../styles/auth.styles.css';
 // import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/authSlice';
+import { useState } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [loggingIn, setLoggingIn] = useState(false);
 
   // const [errorMessage, setErrorMessage] = useState('');
 
@@ -36,6 +38,7 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     try {
+      setLoggingIn(true);
       const response = await loginUser(data.phoneNumber, data.password);
       // console.log('login response :', response);
       // console.log('trying to login student');
@@ -51,14 +54,12 @@ const Login = () => {
         // console.log('this instructer line is getting console logged !!!');
         dispatch(setUser(response?.data?.user));
         navigate('/instructer');
-      } else {
-        // if (!toastMessageShown) {
-        //   toast.warning(response?.data?.message);
-        //   toastMessageShown = true;
-        // }
       }
     } catch (err) {
+      setLoggingIn(false);
       console.error('Login error:', err);
+    } finally {
+      setLoggingIn(false);
     }
   };
 
@@ -102,8 +103,12 @@ const Login = () => {
                 )}
               />
               <div className='auth-buttons'>
-                <Button className='auth-button' type='submit'>
-                  Login
+                <Button
+                  disabled={loggingIn}
+                  className='auth-button'
+                  type='submit'
+                >
+                  {loggingIn ? 'Signing in...' : 'Login'}
                 </Button>
 
                 <Button

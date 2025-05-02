@@ -1,6 +1,6 @@
 # 📊 MERN Attendance Tracker
 
-A minimal, full-stack attendance tracking system using IP address verification. Built with MongoDB, Express, React, and Node.js (MERN), this app helps instructors track student presence in online/offline mode via IP address.
+A minimal, full-stack attendance tracking system using IP address verification. Built with MongoDB, Express, React, Redux and Node.js (MERN), this app helps instructors track student presence in online/offline mode via IP address.
 
 ---
 
