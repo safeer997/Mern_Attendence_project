@@ -29,10 +29,12 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/authSlice';
+import { useState } from 'react';
 
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [signingUp, setSigningUp] = useState(false);
 
   const form = useForm({
     resolver: zodResolver(signupSchema),
@@ -47,9 +49,10 @@ const Signup = () => {
 
   const onSubmit = async (data) => {
     try {
+      setSigningUp(true);
       const response = await signupUser(data);
       if (response?.data?.success === true && data?.role === 'student') {
-        console.log('student res:', response);
+        // console.log('student res:', response);
         dispatch(setUser(response?.data?.data));
         navigate('/student');
       } else if (
@@ -162,7 +165,9 @@ const Signup = () => {
                   )}
                 />
 
-                <Button type='submit'>Sign Up</Button>
+                <Button disabled={signingUp} type='submit'>
+                  Sign Up
+                </Button>
               </form>
             </Form>
             <div className='auth-link'>
