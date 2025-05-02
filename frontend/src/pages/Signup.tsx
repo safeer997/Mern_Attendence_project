@@ -25,7 +25,6 @@ import {
 } from '@/components/ui/select';
 
 import { useNavigate } from 'react-router-dom';
-
 import { toast } from 'sonner';
 import { useDispatch } from 'react-redux';
 import { setUser } from '@/redux/features/authSlice';
@@ -51,22 +50,25 @@ const Signup = () => {
     try {
       setSigningUp(true);
       const response = await signupUser(data);
+
       if (response?.data?.success === true && data?.role === 'student') {
-        // console.log('student res:', response);
         dispatch(setUser(response?.data?.data));
         navigate('/student');
-      } else if (
-        response?.data?.success === true &&
-        data?.role === 'instructer'
-      ) {
-        dispatch(setUser(response?.data?.data));
-
-        navigate('/instructer');
-      } else {
-        toast.warning(response?.data?.message);
+        return;
       }
+
+      if (response?.data?.success === true && data?.role === 'instructer') {
+        dispatch(setUser(response?.data?.data));
+        navigate('/instructer');
+        return;
+      }
+
+      toast.warning(response?.data?.message);
     } catch (error) {
       console.error('Signup failed:', error);
+      toast.error('Signup failed. Please try again.');
+    } finally {
+      setSigningUp(false);
     }
   };
 
@@ -75,110 +77,111 @@ const Signup = () => {
   };
 
   return (
-    <>
-      <div className='auth-container'>
-        <Card className='auth-card'>
-          <CardHeader>
-            <CardTitle className='auth-title'>Mark My Attendence</CardTitle>
-          </CardHeader>
-          <CardContent className='auth-content'>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)}>
-                <FormField
-                  control={form.control}
-                  name='name'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Username</FormLabel>
-                      <FormControl>
-                        <Input placeholder='name' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='email'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Email</FormLabel>
-                      <FormControl>
-                        <Input placeholder='email' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='phoneNumber'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input placeholder='phone number' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='password'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input placeholder='password' {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name='role'
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>User Type</FormLabel>
-                      <FormControl>
-                        <Select
-                          onValueChange={field.onChange}
-                          defaultValue={field.value}
-                        >
-                          <SelectTrigger className='w-[180px]'>
-                            <SelectValue placeholder='Please select one' />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectGroup>
-                              <SelectItem value='student'>Student</SelectItem>
-                              <SelectItem value='instructer'>
-                                Instructer
-                              </SelectItem>
-                            </SelectGroup>
-                          </SelectContent>
-                        </Select>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <div className='auth-container'>
+      <Card className='auth-card'>
+        <CardHeader>
+          <CardTitle className='auth-title'>Mark My Attendence</CardTitle>
+        </CardHeader>
+        <CardContent className='auth-content'>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)}>
+              <FormField
+                control={form.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Username</FormLabel>
+                    <FormControl>
+                      <Input placeholder='name' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-                <Button disabled={signingUp} type='submit'>
-                  Sign Up
-                </Button>
-              </form>
-            </Form>
-            <div className='auth-link'>
-              <p>
-                Already a member ?<span onClick={handleSignin}>Sign In</span>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    </>
+              <FormField
+                control={form.control}
+                name='email'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder='email' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='phoneNumber'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input placeholder='phone number' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='password'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input placeholder='password' type='password' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name='role'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>User Type</FormLabel>
+                    <FormControl>
+                      <Select
+                        onValueChange={field.onChange}
+                        defaultValue={field.value}
+                      >
+                        <SelectTrigger className='w-[180px]'>
+                          <SelectValue placeholder='Please select one' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectGroup>
+                            <SelectItem value='student'>Student</SelectItem>
+                            <SelectItem value='instructer'>Instructer</SelectItem>
+                          </SelectGroup>
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <Button disabled={signingUp} type='submit' className='w-full mt-4'>
+                {signingUp ? 'Signing up...' : 'Sign Up'}
+              </Button>
+            </form>
+          </Form>
+
+          <div className='auth-link'>
+            <p>
+              Already a member? <span onClick={handleSignin}>Sign In</span>
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
