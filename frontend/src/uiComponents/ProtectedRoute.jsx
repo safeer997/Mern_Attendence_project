@@ -8,7 +8,7 @@ function ProtectedRoute({ children, allowedRoles }) {
   if (loading) {
     return (
       <div className='flex justify-center items-center min-h-screen text-xl'>
-        Loading...
+        Loading...it may take 50 seconds ...please wait !
       </div>
     );
   }
