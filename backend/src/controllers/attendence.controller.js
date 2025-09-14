@@ -7,8 +7,6 @@ const markAttendance = async (req, res) => {
   const studentIp = requestIp.getClientIp(req);
   const { sessionId } = req.params;
 
-  console.log('student ip in deployment after installing package:', studentIp); //keeping for fetching the right ip
-
   if (!sessionId?.trim()) {
     return res.status(400).json({
       success: false,
@@ -34,7 +32,6 @@ const markAttendance = async (req, res) => {
       });
     }
 
-    //checking student
     const student = await Student.findOne({ phoneNumber });
 
     if (!student) {
@@ -44,7 +41,6 @@ const markAttendance = async (req, res) => {
       });
     }
 
-    //checking attendance if already marked
     const attendanceExists = await Attendance.findOne({
       student: student._id,
       classSession: session._id,
