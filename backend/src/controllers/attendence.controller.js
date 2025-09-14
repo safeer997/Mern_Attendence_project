@@ -1,12 +1,13 @@
 import { Attendance } from '../models/attendence.model.js';
 import { ClassSession } from '../models/classSession.model.js';
 import { Student } from '../models/student.model.js';
+import requestIp from 'request-ip';
 
 const markAttendance = async (req, res) => {
-  const studentIp = req.ip;
+  const studentIp = requestIp.getClientIp(req);
   const { sessionId } = req.params;
 
-  console.log('student ip in deployment :', studentIp);  //keeping for fetching the right ip 
+  console.log('student ip in deployment after installing package:', studentIp); //keeping for fetching the right ip
 
   if (!sessionId?.trim()) {
     return res.status(400).json({
