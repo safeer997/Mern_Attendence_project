@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 
-const apiUrl = import.meta.env.VITE_API_URL || '';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const loginUser = async (phoneNumber, password) => {
   // console.log("trying to login !")
@@ -39,6 +39,7 @@ export const logoutUser = async () => {
 //user data as being passed as object from signup page
 export const signupUser = async (userData) => {
   try {
+    console.log('signup going:', userData);
     const response = await axios.post(`${apiUrl}/auth/signup`, userData, {
       withCredentials: true,
     });

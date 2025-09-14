@@ -1,5 +1,6 @@
 import { ClassSession } from '../models/classSession.model.js';
 import { Student } from '../models/student.model.js';
+import jwt from "jsonwebtoken"
 
 const registerStudent = async (req, res) => {
   const { name, email, password, phoneNumber } = req.body;

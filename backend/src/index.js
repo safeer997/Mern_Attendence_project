@@ -26,8 +26,8 @@ const app = express();
 app.use(express.json());
 app.use(
   cors({
-    origin: 'https://marksafeer.onrender.com', // your frontend origin
-    credentials: true, // allow cookies and credentials
+    origin: ['http://localhost:5173', 'https://marksafeer.onrender.com'],
+    credentials: true,
   })
 );
 

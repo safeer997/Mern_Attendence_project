@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const apiUrl = import.meta.env.VITE_API_URL || '';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 export const createSession = async (data) => {
   try {
@@ -45,5 +45,3 @@ export const fetchAllSessionsOfInstructer = async () => {
     return error.response;
   }
 };
-
-
