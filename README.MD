@@ -23,7 +23,7 @@ A minimal, full-stack attendance tracking system using IP address verification. 
 ## 📸 Screenshots
 
 <div align="center">
-  <img src="assets/screenshots/instructorDashboard.png" alt="Instructor Dashboard" width="600" />
+  <img src="assets/screenshots/instructerDashboard.png" alt="Instructor Dashboard" width="600" />
   <br>
   <em>Instructor Dashboard: Create new sessions, view past sessions, and student records</em>
 </div>
@@ -32,7 +32,7 @@ A minimal, full-stack attendance tracking system using IP address verification. 
   <img src="assets/screenshots/signup.png" alt="Sign Up Form" width="350" />
   <img src="assets/screenshots/signupValidation.png" alt="Sign Up Validation Errors" width="350" />
   <br>
-  <em>Left: Sign Up Form &nbsp;&nbsp; Right: Validation feedback for email and phone</em>
+  <em>Left: Sign Up Form &nbsp;&nbsp;  Right: Validation feedback</em>
 </div>
 
 <div align="center">
