@@ -22,28 +22,34 @@ A minimal, full-stack attendance tracking system using IP address verification. 
 
 ## 📸 Screenshots
 
-<div align="center">
+<div align="center" style="margin-bottom: 40px;">
   <img src="assets/screenshots/instructerDashboard.png" alt="Instructor Dashboard" width="600" />
-  <br>
+  <br><br>
   <em>Instructor Dashboard: Create new sessions, view past sessions, and student records</em>
 </div>
 
-<div align="center">
-  <img src="assets/screenshots/signup.png" alt="Sign Up Form" width="350" />
+<br><br>
+
+<div align="center" style="margin-bottom: 40px;">
+  <img src="assets/screenshots/signup.png" alt="Sign Up Form" width="350" style="margin-right: 20px;" />
   <img src="assets/screenshots/signupValidation.png" alt="Sign Up Validation Errors" width="350" />
-  <br>
-  <em>Left: Sign Up Form &nbsp;&nbsp;  Right: Validation feedback</em>
+  <br><br>
+  <em>Left: Sign Up Form &nbsp;&nbsp; | &nbsp;&nbsp; Right: Validation feedback</em>
 </div>
 
-<div align="center">
+<br><br>
+
+<div align="center" style="margin-bottom: 40px;">
   <img src="assets/screenshots/studentDashboard.png" alt="Student Attendance Form" width="600" />
-  <br>
+  <br><br>
   <em>Student Dashboard: “Mark My Attendance” form with IP-based verification</em>
 </div>
 
-<div align="center">
+<br><br>
+
+<div align="center" style="margin-bottom: 40px;">
   <img src="assets/screenshots/sessionReport.png" alt="Past Sessions Cards" width="600" />
-  <br>
+  <br><br>
   <em>Instructor View: Past session summaries with offline/online/absent counts</em>
 </div>
 
