@@ -19,7 +19,6 @@ A minimal, full-stack attendance tracking system using IP address verification. 
 11. [Contact](#-contact)
 
 ---
-
 ## 📸 Screenshots
 
 <div align="center" style="margin-bottom: 40px;">
@@ -28,24 +27,25 @@ A minimal, full-stack attendance tracking system using IP address verification. 
   <em>Instructor Dashboard: Create new sessions, view past sessions, and student records</em>
 </div>
 
-<br><br>
+<br>
 
-<div align="center" style="margin-bottom: 40px;">
-  <img src="assets/screenshots/signup.png" alt="Sign Up Form" width="350" style="margin-right: 20px;" />
+<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px;">
+  <img src="assets/screenshots/signup.png" alt="Sign Up Form" width="350" />
   <img src="assets/screenshots/signupValidation.png" alt="Sign Up Validation Errors" width="350" />
   <br><br>
   <em>Left: Sign Up Form &nbsp;&nbsp; | &nbsp;&nbsp; Right: Validation feedback</em>
 </div>
 
-<br><br>
+<br>
 
-<div align="center" style="margin-bottom: 40px;">
-  <img src="assets/screenshots/studentDashboard.png" alt="Student Attendance Form" width="600" />
+<div align="center" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 40px;">
+  <img src="assets/screenshots/login.png" alt="Login UI" width="350" />
+  <img src="assets/screenshots/studentDashboard.png" alt="Student Dashboard" width="350" />
   <br><br>
   <em>Student Dashboard: “Mark My Attendance” form with IP-based verification</em>
 </div>
 
-<br><br>
+<br>
 
 <div align="center" style="margin-bottom: 40px;">
   <img src="assets/screenshots/sessionReport.png" alt="Past Sessions Cards" width="600" />
