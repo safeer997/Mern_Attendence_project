@@ -84,8 +84,10 @@ const Signup = () => {
           alt='Signup Illustration'
           className='w-48 sm:w-56 md:w-72 h-auto mb-4 md:mb-8 drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]'
           onError={(e) => {
-            e.target.src =
-              'https://undraw.co/api/illustrations/team_spirit?color=ffffff';
+            const target = e.target as HTMLImageElement | null;
+            if (target)
+              target.src =
+                'https://undraw.co/api/illustrations/team_spirit?color=ffffff';
           }}
         />
         <h1 className='text-5xl font-extrabold mb-4 text-indigo-400 tracking-tight'>
