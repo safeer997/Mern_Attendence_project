@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getTodaySessions, markAttendance } from '@/api/student';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import useAuth from '@/utils/authCustomHook';
 import { motion } from 'framer-motion';
@@ -91,20 +91,49 @@ const StudentDashboard = () => {
                 <Card className='shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl hover:border-indigo-500/50 transition-all duration-300'>
                   <CardContent className='p-4 sm:p-6'>
                     <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
-                      <div className='space-y-1 flex-1 min-w-0'>
-                        <CardTitle className='text-lg sm:text-xl font-semibold text-white truncate'>
-                          {session.topic}
-                        </CardTitle>
-                        <p className='text-sm text-gray-400'>
-                          {new Date(session.sessionDate).toLocaleDateString()}
-                        </p>
+                      {/* Left Side - Session Info */}
+                      <div className='flex flex-col gap-3 flex-1'>
+                        {/* Topic */}
+                        <div>
+                          <h3 className='text-gray-400 text-xs font-medium uppercase tracking-wide'>Topic</h3>
+                          <CardTitle className='text-xl font-bold text-white mt-1'>
+                            {session.topic}
+                          </CardTitle>
+                        </div>
+
+                        {/* Date and Instructor in a row */}
+                        <div className='flex flex-col sm:flex-row sm:gap-8 gap-3'>
+                          {/* Date */}
+                          <div>
+                            <h3 className='text-gray-400 text-xs font-medium uppercase tracking-wide'>Date</h3>
+                            <p className='text-white text-base mt-1'>
+                              {new Date(session.sessionDate).toLocaleDateString('en-US', {
+                                month: 'short',
+                                day: 'numeric',
+                                year: 'numeric'
+                              })}
+                            </p>
+                          </div>
+
+                          {/* Instructor */}
+                          <div>
+                            <h3 className='text-gray-400 text-xs font-medium uppercase tracking-wide'>Instructor</h3>
+                            <p className='text-white text-base font-semibold mt-1'>
+                              {session.instructor?.name || 'N/A'}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                      <Button
-                        onClick={() => handleMarkAttendance(session._id)}
-                        className='w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-200'
-                      >
-                        Mark Attendance
-                      </Button>
+
+                      {/* Right Side - Button */}
+                      <div className='flex items-center sm:self-center'>
+                        <Button
+                          onClick={() => handleMarkAttendance(session._id)}
+                          className='w-full sm:w-auto px-8 py-6 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-base transition-all duration-200 shadow-lg hover:shadow-indigo-500/50'
+                        >
+                          Mark Attendance
+                        </Button>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
