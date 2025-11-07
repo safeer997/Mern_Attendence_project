@@ -29,12 +29,15 @@ const InstructerDashboard = () => {
 
         // Filter sessions created within last 15 days
         const fifteenDaysAgo = new Date();
-        fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 7);
+        fifteenDaysAgo.setDate(fifteenDaysAgo.getDate() - 15);
 
         const filteredSessions = allSessions
           .filter((session) => new Date(session.createdAt) >= fifteenDaysAgo)
-          .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
-          // .slice(0, 3); // Show only top 3 recent sessions
+          .sort(
+            (a, b) =>
+              new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          );
+        // .slice(0, 3); // Show only top 3 recent sessions
 
         setRecentSessions(filteredSessions);
       } catch (error) {
@@ -158,7 +161,7 @@ const InstructerDashboard = () => {
               Recent Sessions
             </h2>
             <p className='text-gray-400 text-sm sm:text-base'>
-              Sessions created in the last 7 days
+              Sessions created in the last 15 days
             </p>
           </div>
 
@@ -179,32 +182,50 @@ const InstructerDashboard = () => {
                   variants={sessionCardVariants}
                 >
                   <Card className='h-full shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl hover:border-indigo-500/50 transition-all duration-300'>
-                    <CardHeader>
+                    <CardHeader className='space-y-1'>
+                      {/* Topic Label */}
+                      <p className='text-xs uppercase text-indigo-400 font-medium tracking-wide'>
+                        Topic
+                      </p>
                       <CardTitle className='text-lg sm:text-xl text-white truncate'>
                         {session.topic}
                       </CardTitle>
+
+                      {/* Date Label */}
+                      <p className='text-xs uppercase text-indigo-400 font-medium tracking-wide mt-2'>
+                        Date
+                      </p>
                       <CardDescription className='text-gray-400 text-sm'>
                         {new Date(session.sessionDate).toLocaleDateString()}
                       </CardDescription>
                     </CardHeader>
+
                     <CardContent className='space-y-4'>
                       <div className='text-sm space-y-2 text-gray-300'>
                         <div className='flex justify-between'>
-                          <span>🟢 Offline:</span>
+                          <span className='flex items-center gap-2'>
+                            <span className='text-green-400'>🟢</span> Offline
+                          </span>
                           <span className='font-semibold'>
-                            {session.offlineStudents?.length || 0}
+                            {session.offlineStudents.length}
                           </span>
                         </div>
+
                         <div className='flex justify-between'>
-                          <span>🔵 Online:</span>
+                          <span className='flex items-center gap-2'>
+                            <span className='text-blue-400'>🔵</span> Online
+                          </span>
                           <span className='font-semibold'>
-                            {session.onlineStudents?.length || 0}
+                            {session.onlineStudents.length}
                           </span>
                         </div>
+
                         <div className='flex justify-between'>
-                          <span>🔴 Absent:</span>
+                          <span className='flex items-center gap-2'>
+                            <span className='text-red-400'>🔴</span> Absent
+                          </span>
                           <span className='font-semibold'>
-                            {session.absentStudents?.length || 0}
+                            {session.absentStudents.length}
                           </span>
                         </div>
                       </div>

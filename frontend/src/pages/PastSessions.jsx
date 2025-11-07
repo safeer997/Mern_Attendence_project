@@ -25,9 +25,7 @@ const PastSessions = () => {
         const sortedSessions = response?.data?.data?.sort((a, b) => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-
         setSessions(sortedSessions);
-        console.log('sessions set use state hook !!', sortedSessions);
       } catch (error) {
         console.error('Error fetching sessions:', error);
         toast.error('Failed to load sessions');
@@ -48,10 +46,7 @@ const PastSessions = () => {
     visible: (i) => ({
       opacity: 1,
       y: 0,
-      transition: {
-        delay: i * 0.05,
-        duration: 0.4,
-      },
+      transition: { delay: i * 0.05, duration: 0.4 },
     }),
   };
 
@@ -72,10 +67,10 @@ const PastSessions = () => {
           </p>
         </motion.div>
 
-        {/* Sessions Grid */}
+        {/* Sessions */}
         {isLoading ? (
           <Card className='shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl'>
-            <CardContent className='p-6 sm:p-8 text-center'>
+            <CardContent className='p-6 text-center'>
               <p className='text-gray-400'>Loading sessions...</p>
             </CardContent>
           </Card>
@@ -90,30 +85,48 @@ const PastSessions = () => {
                 variants={cardVariants}
               >
                 <Card className='h-full shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl hover:border-indigo-500/50 transition-all duration-300'>
-                  <CardHeader>
+                  <CardHeader className='space-y-1'>
+                    {/* Topic Label */}
+                    <p className='text-xs uppercase text-indigo-400 font-medium tracking-wide'>
+                      Topic
+                    </p>
                     <CardTitle className='text-lg sm:text-xl text-white truncate'>
                       {session.topic}
                     </CardTitle>
+
+                    {/* Date Label */}
+                    <p className='text-xs uppercase text-indigo-400 font-medium tracking-wide mt-2'>
+                      Date
+                    </p>
                     <CardDescription className='text-gray-400 text-sm'>
                       {new Date(session.sessionDate).toLocaleDateString()}
                     </CardDescription>
                   </CardHeader>
+
                   <CardContent className='space-y-4'>
                     <div className='text-sm space-y-2 text-gray-300'>
                       <div className='flex justify-between'>
-                        <span>🟢 Offline:</span>
+                        <span className='flex items-center gap-2'>
+                          <span className='text-green-400'>🟢</span> Offline
+                        </span>
                         <span className='font-semibold'>
                           {session.offlineStudents.length}
                         </span>
                       </div>
+
                       <div className='flex justify-between'>
-                        <span>🔵 Online:</span>
+                        <span className='flex items-center gap-2'>
+                          <span className='text-blue-400'>🔵</span> Online
+                        </span>
                         <span className='font-semibold'>
                           {session.onlineStudents.length}
                         </span>
                       </div>
+
                       <div className='flex justify-between'>
-                        <span>🔴 Absent:</span>
+                        <span className='flex items-center gap-2'>
+                          <span className='text-red-400'>🔴</span> Absent
+                        </span>
                         <span className='font-semibold'>
                           {session.absentStudents.length}
                         </span>
@@ -141,7 +154,7 @@ const PastSessions = () => {
           </div>
         ) : (
           <Card className='shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl'>
-            <CardContent className='p-6 sm:p-8 text-center'>
+            <CardContent className='p-6 text-center'>
               <p className='text-gray-400 text-base sm:text-lg'>
                 No sessions found
               </p>
