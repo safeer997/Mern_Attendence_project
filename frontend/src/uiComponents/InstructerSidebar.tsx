@@ -1,10 +1,9 @@
-import { LogOut, Home, Users } from 'lucide-react';
+import { LogOut, Home, Users, BarChart3, FileText } from 'lucide-react';
 import {
   Sidebar,
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -17,7 +16,7 @@ import { toast } from 'sonner';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 
-export function AppSidebar() {
+export function InstructorSidebar() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -40,13 +39,28 @@ export function AppSidebar() {
   const menuItems = [
     {
       icon: <Home className='w-4 h-4' />,
-      label: 'Profile',
-      action: () => navigate('/profile'),
+      label: 'Dashboard',
+      action: () => navigate('/instructer'),
+    },
+    {
+      icon: <FileText className='w-4 h-4' />,
+      label: 'Create Session',
+      action: () => navigate('/create-session'),
+    },
+    {
+      icon: <BarChart3 className='w-4 h-4' />,
+      label: 'Past Sessions',
+      action: () => navigate('/past-sessions'),
     },
     {
       icon: <Users className='w-4 h-4' />,
-      label: 'All Sessions',
-      action: () => navigate('/past-sessions'),
+      label: 'Students',
+      action: () => navigate('/students'),
+    },
+    {
+      icon: <Home className='w-4 h-4' />,
+      label: 'Profile',
+      action: () => navigate('/profile'),
     },
     {
       icon: <LogOut className='w-4 h-4' />,
@@ -57,26 +71,9 @@ export function AppSidebar() {
   ];
 
   return (
-    <Sidebar className='h-screen bg-gradient-to-b from-gray-900 to-gray-950 border-r border-gray-800/60 w-64'>
+    <Sidebar className='h-screen bg-gray-900/40 backdrop-blur-md border-r border-gray-800/50 shadow-[0_0_25px_rgba(0,0,0,0.4)]'>
       <SidebarContent className='flex flex-col h-full space-y-0'>
         {/* Header */}
-        <SidebarGroup className='pb-4 border-b border-gray-800/60'>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className='px-4 py-4'
-          >
-            <div className='flex items-center gap-2'>
-              <div className='w-8 h-8 bg-gradient-to-br from-indigo-500 to-indigo-600 rounded-lg flex items-center justify-center flex-shrink-0'>
-                <span className='text-white font-bold text-sm'>📍</span>
-              </div>
-              <h2 className='text-base font-extrabold text-white truncate'>
-                Attendance App
-              </h2>
-            </div>
-          </motion.div>
-        </SidebarGroup>
 
         {/* Menu Items */}
         <SidebarGroup className='flex-1 px-0'>
@@ -107,7 +104,9 @@ export function AppSidebar() {
                       `}
                     >
                       <span className='flex-shrink-0 w-4 h-4'>{item.icon}</span>
-                      <span className='font-medium text-sm ml-2'>{item.label}</span>
+                      <span className='font-medium text-sm ml-2'>
+                        {item.label}
+                      </span>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 </motion.div>
@@ -121,7 +120,7 @@ export function AppSidebar() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.3, duration: 0.5 }}
-          className='mt-auto pt-4 border-t border-gray-800/60 px-4 py-4'
+          className='mt-auto pt-4 border-t border-indigo-500/20 px-4 py-4'
         >
           <p className='text-xs text-gray-500 text-center'>
             © 2025 Attendance App
@@ -132,4 +131,4 @@ export function AppSidebar() {
   );
 }
 
-export default AppSidebar;
+export default InstructorSidebar;

@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -100,13 +100,15 @@
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
+
+  /* UPDATED SIDEBAR STYLING - GLOSSY BLACK EFFECT */
+  --sidebar: oklch(0.145 0 0 / 40%); /* Glossy black with 40% opacity */
+  --sidebar-foreground: oklch(0.985 0 0); /* White text */
   --sidebar-primary: oklch(0.488 0.243 264.376);
   --sidebar-primary-foreground: oklch(0.985 0 0);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-border: oklch(1 0 0 / 5%); /* Subtle border like auth */
   --sidebar-ring: oklch(0.556 0 0);
 }
 
@@ -117,4 +119,34 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ========== SCROLLBAR STYLING ========== */
+
+/* Scrollbar matching button bg-indigo-600 and hover:bg-indigo-700 */
+
+/* Base scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Scrollbar thumb normal - indigo-600 (#4f46e5) */
+::-webkit-scrollbar-thumb {
+  background: #4f46e5;
+  border-radius: 10px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  transition: all 0.3s ease;
+}
+
+/* Scrollbar thumb hover - darker indigo-700 (#4338ca) */
+::-webkit-scrollbar-thumb:hover {
+  background: #4338ca;
+  background-clip: content-box;
+  box-shadow: none; /* Remove glow to keep darker appearance */
 }

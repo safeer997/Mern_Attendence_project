@@ -1,19 +1,22 @@
 import { useEffect, useState } from 'react';
 import { getTodaySessions, markAttendance } from '@/api/student';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 import useAuth from '@/utils/authCustomHook';
+import { motion } from 'framer-motion';
 
 const StudentDashboard = () => {
   const [sessions, setSessions] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useAuth(); //check whetr user is logged in !!!
+  useAuth();
 
   useEffect(() => {
     async function fetchSessions() {
       try {
+        setIsLoading(true);
         const response = await getTodaySessions();
-        // console.log("student dashboard response :",response)
         const sortedSessions = response?.data?.data?.sort((a, b) => {
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
@@ -21,6 +24,9 @@ const StudentDashboard = () => {
         setSessions(sortedSessions);
       } catch (error) {
         console.error(error);
+        toast.error('Failed to load sessions');
+      } finally {
+        setIsLoading(false);
       }
     }
     fetchSessions();
@@ -29,7 +35,6 @@ const StudentDashboard = () => {
   const handleMarkAttendance = async (sessionId) => {
     try {
       const response = await markAttendance(sessionId);
-      // console.log('mark attendence :', response);
       toast.success(response?.data?.message || 'Attendance marked!');
     } catch (error) {
       console.error(error);
@@ -37,26 +42,84 @@ const StudentDashboard = () => {
     }
   };
 
+  const cardVariants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i) => ({
+      opacity: 1,
+      x: 0,
+      transition: {
+        delay: i * 0.1,
+        duration: 0.4,
+      },
+    }),
+  };
+
   return (
-    <div className='p-8'>
-      <h1 className='text-2xl font-bold mb-4'>Recent Sessions</h1>
-      <div className='space-y-4'>
-        {sessions.map((session) => (
-          <div
-            key={session._id}
-            className='border p-4 rounded-md flex justify-between items-center'
-          >
-            <div>
-              <p className='font-semibold'>{session.topic}</p>
-              <p className='text-gray-500'>
-                {new Date(session.sessionDate).toLocaleDateString()}
-              </p>
-            </div>
-            <Button onClick={() => handleMarkAttendance(session._id)}>
-              Mark Attendance
-            </Button>
-          </div>
-        ))}
+    <div className='w-full h-full p-4 sm:p-6 lg:p-8 flex flex-col'>
+      <div className='w-full space-y-6'>
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className='space-y-2'
+        >
+          <h1 className='text-3xl sm:text-4xl font-extrabold text-white tracking-tight'>
+            Recent Sessions
+          </h1>
+          <p className='text-gray-400 text-sm sm:text-base'>
+            Mark your attendance for today's classes
+          </p>
+        </motion.div>
+
+        {/* Sessions List */}
+        <div className='w-full space-y-4'>
+          {isLoading ? (
+            <Card className='shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl'>
+              <CardContent className='p-6 sm:p-8 text-center'>
+                <p className='text-gray-400'>Loading sessions...</p>
+              </CardContent>
+            </Card>
+          ) : sessions.length > 0 ? (
+            sessions.map((session, index) => (
+              <motion.div
+                key={session._id}
+                custom={index}
+                initial='hidden'
+                animate='visible'
+                variants={cardVariants}
+              >
+                <Card className='shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl hover:border-indigo-500/50 transition-all duration-300'>
+                  <CardContent className='p-4 sm:p-6'>
+                    <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'>
+                      <div className='space-y-1 flex-1 min-w-0'>
+                        <CardTitle className='text-lg sm:text-xl font-semibold text-white truncate'>
+                          {session.topic}
+                        </CardTitle>
+                        <p className='text-sm text-gray-400'>
+                          {new Date(session.sessionDate).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <Button
+                        onClick={() => handleMarkAttendance(session._id)}
+                        className='w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white transition-all duration-200'
+                      >
+                        Mark Attendance
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))
+          ) : (
+            <Card className='shadow-2xl border border-gray-800/60 bg-gray-900/70 backdrop-blur-md rounded-2xl'>
+              <CardContent className='p-6 sm:p-8 text-center'>
+                <p className='text-gray-400 text-base sm:text-lg'>
+                  No sessions available for today
+                </p>
+              </CardContent>
+            </Card>
+          )}
+        </div>
       </div>
     </div>
   );
