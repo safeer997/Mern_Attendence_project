@@ -1,6 +1,6 @@
 import { ClassSession } from '../models/classSession.model.js';
 import { Student } from '../models/student.model.js';
-import jwt from "jsonwebtoken"
+import jwt from 'jsonwebtoken';
 
 const registerStudent = async (req, res) => {
   const { name, email, password, phoneNumber } = req.body;
@@ -142,30 +142,25 @@ const getStudent = async (req, res) => {
 
 const getTodaySessions = async (req, res) => {
   try {
-    // const today = new Date();
-    // today.setHours(0, 0, 0, 0);
-
-    // const tomorrow = new Date(today);
-    // tomorrow.setDate(today.getDate() + 1);
-
     const end = new Date();
-    // Start is 7 days before now
-    const start = new Date(end.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const start = new Date(end.getTime() - 30 * 24 * 60 * 60 * 1000); // past 30 days
 
     const sessions = await ClassSession.find({
       sessionDate: { $gte: start },
-    });
+    })
+      .populate('instructor', 'name email') // include instructor info
+      .sort({ sessionDate: -1 }); // newest first
 
-    return res.status(201).json({
+    return res.status(200).json({
       success: true,
-      message: 'past week sessions data fetched.',
+      message: 'Past month sessions fetched successfully.',
       data: sessions,
     });
   } catch (error) {
-    console.log('Error :', error);
+    console.error('Error fetching past month sessions:', error);
     res.status(500).json({
       success: false,
-      message: 'error fegtching today sessions',
+      message: 'Error fetching past month sessions.',
     });
   }
 };
