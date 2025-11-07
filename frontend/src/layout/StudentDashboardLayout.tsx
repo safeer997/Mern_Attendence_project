@@ -14,12 +14,24 @@ function StudentDashboardLayout() {
         {/* Mobile Header with Trigger */}
         <div className='md:hidden flex items-center gap-4 px-4 py-3 border-b border-gray-800/60 bg-gray-900/50 backdrop-blur-md'>
           <SidebarTrigger className='text-white hover:text-cyan-400' />
-          <h1 className='text-lg font-semibold text-white'>Attendance App</h1>
+          <h1 className='text-lg font-semibold text-white'>
+            Mark My Attendance
+          </h1>
         </div>
 
         {/* Desktop trigger - always visible top-left */}
-        <div className='hidden md:flex items-center px-4 py-3 border-b border-gray-800/60 bg-black-900/30 backdrop-blur-md'>
-          <SidebarTrigger className='text-white hover:text-cyan-400' />
+        {/* Desktop trigger - always visible top-left */}
+        <div className='hidden md:flex items-center justify-between px-6 py-3 border-b border-gray-800/60 bg-gray-900/50 backdrop-blur-md'>
+          <div className='flex items-center gap-3'>
+            <SidebarTrigger className='text-white hover:text-cyan-400 transition-colors' />
+          </div>
+
+          <h1 className='absolute left-1/2 transform -translate-x-1/2 text-2xl font-semibold text-white'>
+            Mark My Attendance
+          </h1>
+
+          {/* spacer div to balance flex alignment */}
+          <div className='w-8'></div>
         </div>
 
         {/* Content Area - Takes remaining space */}

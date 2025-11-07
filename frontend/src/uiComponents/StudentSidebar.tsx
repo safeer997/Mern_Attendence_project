@@ -111,7 +111,7 @@ export function StudentSidebar() {
           className='mt-auto pt-4 border-t border-cyan-500/20 px-4 py-4'
         >
           <p className='text-xs text-gray-500 text-center'>
-            © 2025 Attendance App
+            Made with ❤️ by Safeer Alam
           </p>
         </motion.div>
       </SidebarContent>
