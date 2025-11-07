@@ -7,7 +7,7 @@ import { Toaster } from 'sonner';
 import { store } from './redux/store';
 import { Provider } from 'react-redux';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
-
+import CustomToaster from './uiComponents/CustomToaster.jsx';
 
 createRoot(document.getElementById('root')!).render(
   // <StrictMode>
@@ -18,7 +18,7 @@ createRoot(document.getElementById('root')!).render(
         {/* <SidebarTrigger /> */}
         <App />
       </Provider>
-      <Toaster position='top-center' richColors />
+      <CustomToaster />
     </SidebarProvider>
   </BrowserRouter>
   // </StrictMode>
