@@ -34,7 +34,8 @@ const AttendanceReport = () => {
           </h2>
           <Button
             variant='outline'
-            onClick={() => navigate('/past-sessions')}
+            // onClick={() => navigate('/past-sessions')}
+            onClick={() => navigate(-1)}
             className='border-gray-700 hover:bg-gray-800 text-gray-300'
           >
             ← Go Back
@@ -56,7 +57,7 @@ const AttendanceReport = () => {
             onClick={() => navigate('/past-sessions')}
             className='mb-4 border-gray-700 hover:bg-gray-800 text-gray-300'
           >
-            ← Back to Sessions
+            ← Go Back
           </Button>
         </motion.div>
 
@@ -71,7 +72,8 @@ const AttendanceReport = () => {
                 {session.topic}
               </CardTitle>
               <p className='text-sm text-gray-400'>
-                Session Date: {new Date(session.sessionDate).toLocaleDateString()}
+                Session Date:{' '}
+                {new Date(session.sessionDate).toLocaleDateString()}
               </p>
             </CardHeader>
             <CardContent className='space-y-6'>
