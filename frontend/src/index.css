@@ -121,6 +121,16 @@
   }
 }
 
+@media (max-width: 767px) {
+  .dark {
+    /* Set sidebar to a nearly-solid but still slightly glassy look ONLY on mobile */
+    --sidebar: oklch(
+      0.145 0 0 / 95%
+    ); /* 90% solid, still glossy with blur effect */
+    --sidebar-border: oklch(1 0 0 / 10%);
+  }
+}
+
 /* ========== SCROLLBAR STYLING ========== */
 
 /* Scrollbar matching button bg-indigo-600 and hover:bg-indigo-700 */
