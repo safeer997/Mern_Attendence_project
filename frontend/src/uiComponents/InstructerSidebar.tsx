@@ -27,7 +27,6 @@ export function InstructorSidebar() {
       const response = await logoutUser();
       console.log('Logout API response:', response.data);
       dispatch(logout());
-      toast.success('Logged out successfully');
       navigate('/login');
     } catch (error) {
       console.error('Error logging out:', error);

@@ -75,7 +75,19 @@ const CreateSession = () => {
   }
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-indigo-950/30 flex justify-center items-center p-6'>
+    <div className='relative min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-indigo-950/30 flex justify-center items-center p-6'>
+      {/* ✅ Go Back Button (top-right corner) */}
+      <div className='absolute top-6 left-6'>
+        <Button
+          variant='outline'
+          onClick={() => navigate('/instructer')}
+          className='border-gray-700 hover:bg-gray-800 text-gray-300'
+        >
+          ← Go Back
+        </Button>
+      </div>
+
+      {/* Form Section */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -92,13 +104,18 @@ const CreateSession = () => {
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-6'>
+              <form
+                onSubmit={form.handleSubmit(onSubmit)}
+                className='space-y-6'
+              >
                 <FormField
                   control={form.control}
                   name='topic'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-gray-300'>Session Topic</FormLabel>
+                      <FormLabel className='text-gray-300'>
+                        Session Topic
+                      </FormLabel>
                       <FormControl>
                         <Input
                           placeholder='Enter session topic'
@@ -116,7 +133,9 @@ const CreateSession = () => {
                   name='sessionDate'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel className='text-gray-300'>Session Date</FormLabel>
+                      <FormLabel className='text-gray-300'>
+                        Session Date
+                      </FormLabel>
                       <FormControl>
                         <Input
                           type='date'
@@ -132,7 +151,7 @@ const CreateSession = () => {
                 <FormField
                   control={form.control}
                   name='onlineStudents'
-                  render={({ field }) => (
+                  render={() => (
                     <FormItem>
                       <FormLabel className='text-gray-300'>
                         Select Online Students
