@@ -156,6 +156,11 @@ const Login = () => {
                   >
                     Create Account
                   </Button>
+                  {loggingIn && (
+                    <p className='text-green-500 text-xs font-light italic'>
+                      It may take 30s due to server slip, please wait.
+                    </p>
+                  )}
                 </div>
               </form>
             </Form>

@@ -39,7 +39,7 @@ export const logoutUser = async () => {
 //user data as being passed as object from signup page
 export const signupUser = async (userData) => {
   try {
-    console.log('signup going:', userData);
+    // console.log('signup going:', userData);
     const response = await axios.post(`${apiUrl}/auth/signup`, userData, {
       withCredentials: true,
     });

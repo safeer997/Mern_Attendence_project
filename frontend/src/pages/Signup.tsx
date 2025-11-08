@@ -49,6 +49,10 @@ const Signup = () => {
     try {
       setSigningUp(true);
       const response = await signupUser(data);
+      // console.log('response:', response);
+      if (!response) {
+        toast.error('Network error');
+      }
 
       if (response?.data?.success && data?.role === 'student') {
         dispatch(setUser(response?.data?.data));
@@ -62,10 +66,10 @@ const Signup = () => {
         return;
       }
 
-      toast.warning(response?.data?.message);
+      // toast.warning(response?.data?.message);
     } catch (error) {
-      console.error('Signup failed:', error);
-      toast.error('Signup failed. Please try again.');
+      // console.error('Signup failed:', error);
+      // toast.error('Signup failed. Please try again.');
     } finally {
       setSigningUp(false);
     }
@@ -231,6 +235,11 @@ const Signup = () => {
                 >
                   {signingUp ? 'Signing up...' : 'Sign Up'}
                 </Button>
+                {signingUp && (
+                  <p className='text-green-500 text-xs font-light italic'>
+                    It may take 30s due to server slip, please wait.
+                  </p>
+                )}
               </form>
             </Form>
 
